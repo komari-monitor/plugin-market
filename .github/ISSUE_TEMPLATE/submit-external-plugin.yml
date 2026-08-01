@@ -1,0 +1,92 @@
+name: 提交非 GitHub 托管的插件
+description: Submit a plugin package not hosted on GitHub.
+title: "[Plugin] "
+labels:
+  - plugin-submission
+  - external-plugin
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 提交非 GitHub 托管的插件
+
+        Submit a plugin package that is not hosted on GitHub.
+
+  - type: input
+    id: project_url
+    attributes:
+      label: 项目地址 / Project URL
+      description: 公开主页或源码仓库地址。 / Public homepage or source repository URL.
+      placeholder: "https://example.com/project"
+    validations:
+      required: true
+
+  - type: input
+    id: download
+    attributes:
+      label: 插件包下载地址 / Plugin package URL
+      description: 插件 ZIP 的公开 HTTP(S) 下载链接。 / Public HTTP(S) URL of the plugin ZIP.
+      placeholder: "https://example.com/plugin.zip"
+    validations:
+      required: true
+
+  - type: input
+    id: preview
+    attributes:
+      label: 预览图链接 / Preview image URL
+      description: 可公开访问的 HTTP(S) 图片链接。 / Public HTTP(S) image URL.
+      placeholder: "https://example.com/preview.png"
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: 插件名称 / Plugin name
+      placeholder: "My Komari Plugin"
+    validations:
+      required: true
+
+  - type: input
+    id: short
+    attributes:
+      label: 插件唯一短名称 / Unique plugin short name
+      description: 必须与 `komari-plugin.json` 完全一致。 / Must exactly match `komari-plugin.json`.
+      placeholder: "my-komari-plugin"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 插件版本 / Plugin version
+      description: 必须与 `komari-plugin.json` 完全一致。 / Must exactly match `komari-plugin.json`.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 插件描述 / Plugin description
+      placeholder: "简要描述插件。 / Briefly describe the plugin."
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: 作者 / Author
+      placeholder: "您的名称或组织 / Your name or organization"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: 我已确认 / I confirm
+      options:
+        - label: 插件包中没有恶意代码。 / The plugin package contains no malicious code.
+          required: true
+        - label: 非 GitHub 托管的插件不会由 Actions 自动更新；请求更新需要发起 PR。 / Plugins not hosted on GitHub are not automatically updated by Actions; updates require a pull request.
+          required: true

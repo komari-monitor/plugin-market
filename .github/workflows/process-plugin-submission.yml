@@ -1,0 +1,259 @@
+name: Process Plugin Submission
+
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Plugin submission issue number to reprocess
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  submit:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.issue.body, '### GitHub 仓库地址 / GitHub repository URL') ||
+      contains(github.event.issue.body, '### 插件包下载地址 / Plugin package URL')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: plugin-market-catalog-writes
+      cancel-in-progress: false
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+    steps:
+      - name: Prepare submission event
+        id: submission-event
+        uses: actions/github-script@v7
+        env:
+          ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
+        with:
+          result-encoding: string
+          script: |
+            if (context.eventName === "issues") {
+              return process.env.GITHUB_EVENT_PATH;
+            }
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+            });
+            const fs = require("fs");
+            const path = require("path");
+            const eventPath = path.join(process.env.RUNNER_TEMP, "plugin-submission-event.json");
+            fs.writeFileSync(eventPath, JSON.stringify({ issue: issue.data }));
+            return eventPath;
+
+      - name: Apply submission labels
+        uses: actions/github-script@v7
+        env:
+          ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
+        with:
+          script: |
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+            });
+            const issueBody = issue.data.body || "";
+            const definitions = [
+              {
+                name: "plugin-submission",
+                color: "1d76db",
+                description: "Plugin market submission",
+              },
+              issueBody.includes("### GitHub 仓库地址 / GitHub repository URL")
+                ? {
+                    name: "github-plugin",
+                    color: "0e8a16",
+                    description: "Plugin hosted on GitHub",
+                  }
+                : {
+                    name: "external-plugin",
+                    color: "fbca04",
+                    description: "Plugin hosted outside GitHub",
+                  },
+            ];
+
+            for (const label of definitions) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name,
+                });
+              } catch (error) {
+                if (error.status !== 404) throw error;
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ...label,
+                });
+              }
+            }
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: definitions.map((label) => label.name),
+            });
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate submission and update catalog
+        id: submission
+        run: >-
+          python scripts/plugin_submission.py
+          --event "$SUBMISSION_EVENT_PATH"
+          --catalog v1.json
+          --comment "$RUNNER_TEMP/plugin-submission-comment.md"
+          --pr-body "$RUNNER_TEMP/plugin-submission-pr-body.md"
+          --github-output "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUBMISSION_EVENT_PATH: ${{ steps.submission-event.outputs.result }}
+
+      - name: Reply and close rejected submission
+        if: steps.submission.outputs.status == 'failure'
+        uses: actions/github-script@v7
+        env:
+          COMMENT_PATH: ${{ runner.temp }}/plugin-submission-comment.md
+          ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
+        with:
+          script: |
+            const fs = require("fs");
+            const body = fs.readFileSync(process.env.COMMENT_PATH, "utf8");
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(process.env.ISSUE_NUMBER),
+              body,
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(process.env.ISSUE_NUMBER),
+              state: "closed",
+              state_reason: "not_planned",
+            });
+
+      - name: Reply to temporary validation failure
+        if: steps.submission.outputs.status == 'retry'
+        uses: actions/github-script@v7
+        env:
+          COMMENT_PATH: ${{ runner.temp }}/plugin-submission-comment.md
+          ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
+        with:
+          script: |
+            const fs = require("fs");
+            const body = fs.readFileSync(process.env.COMMENT_PATH, "utf8");
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(process.env.ISSUE_NUMBER),
+              body,
+            });
+
+      - name: Check catalog order
+        if: steps.submission.outputs.status == 'success'
+        run: node scripts/check-catalog-order.mjs
+
+      - name: Post validation result
+        if: steps.submission.outputs.status == 'success'
+        id: validation-comment
+        uses: actions/github-script@v7
+        env:
+          COMMENT_PATH: ${{ runner.temp }}/plugin-submission-comment.md
+          ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
+        with:
+          result-encoding: string
+          script: |
+            const fs = require("fs");
+            const summary = fs.readFileSync(process.env.COMMENT_PATH, "utf8").trimEnd();
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              per_page: 100,
+            });
+            const body = `${summary}\n\n正在创建上架 PR。 / Creating the catalog pull request.`;
+            const existing = [...comments].reverse().find((comment) =>
+              comment.user?.type === "Bot" &&
+              comment.body?.includes("<!-- plugin-submission-validation -->"),
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+              return String(existing.id);
+            }
+            const response = await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body,
+            });
+            return String(response.data.id);
+
+      - name: Create catalog pull request
+        if: steps.submission.outputs.status == 'success'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: ${{ github.event.repository.default_branch }}
+          branch: bot/plugin-submission-${{ env.ISSUE_NUMBER }}
+          delete-branch: true
+          commit-message: "feat: add ${{ steps.submission.outputs.short }} plugin"
+          title: "feat: add ${{ steps.submission.outputs.short }} plugin"
+          body-path: ${{ runner.temp }}/plugin-submission-pr-body.md
+          labels: plugin-submission
+
+      - name: Link pull request from issue
+        if: steps.submission.outputs.status == 'success' && steps.create-pr.outputs.pull-request-url != ''
+        uses: actions/github-script@v7
+        env:
+          COMMENT_ID: ${{ steps.validation-comment.outputs.result }}
+          COMMENT_PATH: ${{ runner.temp }}/plugin-submission-comment.md
+          PULL_REQUEST_URL: ${{ steps.create-pr.outputs.pull-request-url }}
+        with:
+          script: |
+            const fs = require("fs");
+            const summary = fs.readFileSync(process.env.COMMENT_PATH, "utf8").trimEnd();
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: Number(process.env.COMMENT_ID),
+              body: [
+                summary,
+                "",
+                `上架 PR / Catalog pull request: ${process.env.PULL_REQUEST_URL}`,
+                "",
+                "PR 合并或关闭后，此 Issue 将自动关闭。 / This issue will close automatically when the PR is merged or closed.",
+              ].join("\n"),
+            });

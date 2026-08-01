@@ -1,0 +1,46 @@
+name: 提交在 GitHub 中开源的插件
+description: Submit an open-source plugin hosted on GitHub.
+title: "[Plugin] "
+labels:
+  - plugin-submission
+  - github-plugin
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 提交在 GitHub 中开源的插件
+
+        Submit an open-source plugin hosted in a public GitHub repository.
+
+  - type: input
+    id: repository
+    attributes:
+      label: GitHub 仓库地址 / GitHub repository URL
+      description: "示例 / Example: https://github.com/owner/repository"
+      placeholder: "https://github.com/owner/repository"
+    validations:
+      required: true
+
+  - type: input
+    id: preview
+    attributes:
+      label: 预览图链接 / Preview image URL
+      description: 请提供可公开访问的 HTTP(S) 图片链接。 / Provide a public HTTP(S) image URL.
+      placeholder: "https://example.com/preview.png"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: 我已确保 / I confirm
+      options:
+        - label: 仓库必须公开，且最新 Release 中必须提供可下载的插件包。 / The repository must be public and provide a downloadable plugin package in its latest Release.
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        市场会每六小时检查本仓库的最新 GitHub Release；验证通过的插件包发生变化时，会自动发起更新 PR。
+
+        The market checks the latest GitHub Release every six hours and automatically opens an update PR when a verified package changes.

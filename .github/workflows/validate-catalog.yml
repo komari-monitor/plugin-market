@@ -1,0 +1,37 @@
+name: Validate Plugin Catalog
+
+on:
+  push:
+    paths:
+      - v1.json
+      - scripts/check-catalog-order.mjs
+      - scripts/plugin_submission.py
+      - tests/test_plugin_submission.py
+      - .github/ISSUE_TEMPLATE/**
+      - .github/workflows/process-plugin-submission.yml
+      - .github/workflows/close-plugin-submission-issue.yml
+      - .github/workflows/validate-catalog.yml
+  pull_request:
+    paths:
+      - v1.json
+      - scripts/check-catalog-order.mjs
+      - scripts/plugin_submission.py
+      - tests/test_plugin_submission.py
+      - .github/ISSUE_TEMPLATE/**
+      - .github/workflows/process-plugin-submission.yml
+      - .github/workflows/close-plugin-submission-issue.yml
+      - .github/workflows/validate-catalog.yml
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: node scripts/check-catalog-order.mjs
+      - run: python -m unittest discover -s tests -v

@@ -1,0 +1,140 @@
+name: Close Plugin Submission Issue
+
+on:
+  pull_request_target:
+    types:
+      - closed
+
+permissions:
+  actions: write
+  contents: write
+  issues: write
+  pull-requests: read
+
+jobs:
+  close-issue:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.base.ref == github.event.repository.default_branch &&
+      startsWith(github.event.pull_request.head.ref, 'bot/plugin-submission-')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.pull_request.head.ref;
+            const match = /^bot\/plugin-submission-(\d+)$/.exec(branch);
+            if (!match) {
+              core.info(`Ignoring branch ${branch}`);
+              return;
+            }
+
+            const issueNumber = Number(match[1]);
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+            });
+            const body = issue.data.body || "";
+            const isSubmission =
+              body.includes("### GitHub 仓库地址 / GitHub repository URL") ||
+              body.includes("### 插件包下载地址 / Plugin package URL");
+            if (!isSubmission) {
+              core.warning(`Issue #${issueNumber} is not a plugin submission`);
+              return;
+            }
+
+            const pullNumber = context.payload.pull_request.number;
+            const merged = context.payload.pull_request.merged;
+            const comment = merged
+              ? `插件上架 PR #${pullNumber} 已合并，此 Issue 已完成。\n\nPlugin submission PR #${pullNumber} was merged. This issue is complete.`
+              : `插件上架 PR #${pullNumber} 未合并并已关闭，此 Issue 也将关闭。\n\nPlugin submission PR #${pullNumber} was closed without merging. This issue will also be closed.`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: comment,
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              state: "closed",
+              state_reason: merged ? "completed" : "not_planned",
+            });
+
+  delete-submission-branch:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.base.ref == github.event.repository.default_branch &&
+      startsWith(github.event.pull_request.head.ref, 'bot/plugin-submission-')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.pull_request.head.ref;
+            try {
+              await github.rest.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `heads/${branch}`,
+              });
+              core.info(`Deleted temporary branch ${branch}`);
+            } catch (error) {
+              if (error.status === 404 || error.status === 422) {
+                core.info(`Temporary branch ${branch} was already deleted`);
+                return;
+              }
+              throw error;
+            }
+
+  refresh-open-automation-prs:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.base.ref == github.event.repository.default_branch &&
+      (startsWith(github.event.pull_request.head.ref, 'bot/plugin-submission-') ||
+      github.event.pull_request.head.ref == 'bot/update-plugin-releases')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const defaultBranch = context.payload.repository.default_branch;
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              base: defaultBranch,
+              per_page: 100,
+            });
+
+            let releaseUpdateOpen = false;
+            for (const pull of pulls) {
+              if (pull.head.repo?.full_name !== context.payload.repository.full_name) continue;
+              if (pull.head.ref === "bot/update-plugin-releases") {
+                releaseUpdateOpen = true;
+                continue;
+              }
+              const match = /^bot\/plugin-submission-(\d+)$/.exec(pull.head.ref);
+              if (!match) continue;
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: "process-plugin-submission.yml",
+                ref: defaultBranch,
+                inputs: { issue_number: match[1] },
+              });
+              core.info(`Queued refresh for plugin submission issue #${match[1]}`);
+            }
+
+            if (releaseUpdateOpen) {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: "update-plugin-releases.yml",
+                ref: defaultBranch,
+              });
+              core.info("Queued refresh for the open release-update pull request");
+            }
