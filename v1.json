@@ -1,5 +1,23 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-01T12:46:32.636Z",
-  "plugins": []
+  "updated_at": "2026-08-02T05:59:01.395Z",
+  "plugins": [
+    {
+      "name": {
+        "zh-CN": "MJPEG 实时状态",
+        "en": "MJPEG Live Status"
+      },
+      "short": "mjpeg",
+      "description": {
+        "zh-CN": "将 Komari 节点状态渲染为实时 MJPEG 表格流。",
+        "en": "Renders Komari node status as a live MJPEG table stream."
+      },
+      "version": "1.1.0",
+      "author": "Komari Monitor",
+      "komari": "",
+      "url": "https://github.com/Akizon77/mjpeg-plugin",
+      "download": "https://github.com/Akizon77/mjpeg-plugin/releases/download/v1.1.0/mjpeg-plugin.zip",
+      "sha256": "94b6cb3952da82ed91dfec4781332c57bb19d3937b936a725a483aa17a4180d1"
+    }
+  ]
 }
