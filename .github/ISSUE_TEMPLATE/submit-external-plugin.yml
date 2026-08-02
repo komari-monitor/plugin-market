@@ -31,15 +31,6 @@ body:
       required: true
 
   - type: input
-    id: preview
-    attributes:
-      label: 预览图链接 / Preview image URL
-      description: 可公开访问的 HTTP(S) 图片链接。 / Public HTTP(S) image URL.
-      placeholder: "https://example.com/preview.png"
-    validations:
-      required: true
-
-  - type: input
     id: name
     attributes:
       label: 插件名称 / Plugin name

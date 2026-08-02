@@ -24,7 +24,6 @@ The production catalog is [`v1.json`](./v1.json). Each installable plugin contai
   "version": "1.0.0",
   "author": "Akizon77",
   "url": "https://github.com/komari-monitor/komari",
-  "preview": "https://example.com/preview.png",
   "download": "https://example.com/plugin.zip",
   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
   "komari": ">=1.0.0"
@@ -35,9 +34,9 @@ The production catalog is [`v1.json`](./v1.json). Each installable plugin contai
 
 `name`, `description` and `author` may be strings or i18n objects such as `{"zh-CN":"...","en":"..."}`. The market tries the exact locale, the base language and then the first available value in that order.
 
-`preview` 和 `download` 必须是绝对 HTTP(S) URL。`download` 必须指向包含根目录 `komari-plugin.json` 的 Komari 插件 ZIP，`sha256` 必须是该 ZIP 的小写 SHA-256。没有安装包的来源条目可以同时省略 `download` 和 `sha256`。
+`download` 必须是绝对 HTTP(S) URL。`download` 必须指向包含根目录 `komari-plugin.json` 的 Komari 插件 ZIP，`sha256` 必须是该 ZIP 的小写 SHA-256。没有安装包的来源条目可以同时省略 `download` 和 `sha256`。
 
-`preview` and `download` must be absolute HTTP(S) URLs. `download` must point to a Komari plugin ZIP containing a root-level `komari-plugin.json`, and `sha256` must be the lowercase SHA-256 digest of that exact ZIP. A source-only entry may omit both `download` and `sha256`.
+`download` must be an absolute HTTP(S) URL. It must point to a Komari plugin ZIP containing a root-level `komari-plugin.json`, and `sha256` must be the lowercase SHA-256 digest of that exact ZIP. A source-only entry may omit both `download` and `sha256`.
 
 `komari` 是可选的服务端版本约束（例如 `>=1.0.0`），必须与 `komari-plugin.json` 中的 `komari` 完全一致。服务端只在当前版本满足约束时允许安装该插件；省略时表示兼容任意版本。
 
@@ -59,15 +58,15 @@ Choose the appropriate bilingual template on the [new issue page](../../issues/n
 
 ### 在 GitHub 中开源的插件 / Open-source GitHub Plugin
 
-只需要填写 GitHub 仓库地址和预览图链接，并确认仓库公开且最新 Release 提供插件包。
+只需要填写 GitHub 仓库地址，并确认仓库公开且最新 Release 提供插件包。
 
-Only the GitHub repository URL and a preview image URL are required, together with confirmation that the repository is public and its latest Release provides a plugin package.
+Only the GitHub repository URL is required, together with confirmation that the repository is public and its latest Release provides a plugin package.
 
 ### 非 GitHub 托管的插件 / Plugin Hosted Outside GitHub
 
-需要填写项目地址、插件包下载地址、预览图、插件名称、插件唯一短名称、版本、描述和作者。项目地址和插件包地址不能是 GitHub 托管地址。
+需要填写项目地址、插件包下载地址、插件名称、插件唯一短名称、版本、描述和作者。项目地址和插件包地址不能是 GitHub 托管地址。
 
-Provide the project URL, package download URL, preview image URL, plugin name, unique plugin short name, version, description and author. The project and package URLs must not be GitHub-hosted URLs.
+Provide the project URL, package download URL, plugin name, unique plugin short name, version, description and author. The project and package URLs must not be GitHub-hosted URLs.
 
 ## Release Updates / Release 自动更新
 

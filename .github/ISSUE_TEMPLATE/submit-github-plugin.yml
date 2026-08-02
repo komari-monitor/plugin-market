@@ -21,15 +21,6 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: preview
-    attributes:
-      label: 预览图链接 / Preview image URL
-      description: 请提供可公开访问的 HTTP(S) 图片链接。 / Provide a public HTTP(S) image URL.
-      placeholder: "https://example.com/preview.png"
-    validations:
-      required: true
-
   - type: checkboxes
     id: confirmations
     attributes:

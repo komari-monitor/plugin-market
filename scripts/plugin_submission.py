@@ -10,7 +10,6 @@ import os
 import re
 import socket
 import stat
-import struct
 import sys
 import urllib.error
 import urllib.parse
@@ -29,13 +28,11 @@ MAX_ARCHIVE_FILE_SIZE = 128 << 20
 MAX_EXTRACTED_SIZE = 512 << 20
 MAX_MANIFEST_SIZE = 1 << 20
 MAX_JSON_SIZE = 4 << 20
-MAX_PREVIEW_SIZE = 10 << 20
 MAX_REDIRECTS = 10
 
 GITHUB_REPOSITORY_FIELD = "GitHub 仓库地址 / GitHub repository URL"
 PROJECT_URL_FIELD = "项目地址 / Project URL"
 DOWNLOAD_FIELD = "插件包下载地址 / Plugin package URL"
-PREVIEW_FIELD = "预览图链接 / Preview image URL"
 NAME_FIELD = "插件名称 / Plugin name"
 SHORT_FIELD = "插件唯一短名称 / Unique plugin short name"
 VERSION_FIELD = "插件版本 / Plugin version"
@@ -108,14 +105,6 @@ class HTTPClient:
         return self._request(
             url,
             MAX_DOWNLOAD_SIZE,
-            headers={"User-Agent": "komari-plugin-market-submission-checker"},
-            require_public=True,
-        )
-
-    def download_preview(self, url: str) -> bytes:
-        return self._request(
-            url,
-            MAX_PREVIEW_SIZE,
             headers={"User-Agent": "komari-plugin-market-submission-checker"},
             require_public=True,
         )
@@ -264,48 +253,6 @@ def validate_public_url(value: str) -> None:
             )
 
 
-def normalize_preview_url(value: str) -> str:
-    parsed = validate_http_url(value, PREVIEW_FIELD)
-    if parsed.hostname.lower() not in {"github.com", "www.github.com"}:
-        return value
-
-    parts = [part for part in parsed.path.split("/") if part]
-    if len(parts) < 5 or parts[2] != "blob":
-        return value
-
-    raw_path = "/".join([parts[0], parts[1], *parts[3:]])
-    return f"https://raw.githubusercontent.com/{raw_path}"
-
-
-def validate_preview_image(data: bytes) -> None:
-    is_png = (
-        len(data) >= 24
-        and data.startswith(b"\x89PNG\r\n\x1a\n")
-        and data[8:12] == b"\x00\x00\x00\r"
-        and data[12:16] == b"IHDR"
-        and all(struct.unpack(">II", data[16:24]))
-    )
-    is_gif = (
-        len(data) >= 10
-        and data[:6] in {b"GIF87a", b"GIF89a"}
-        and all(struct.unpack("<HH", data[6:10]))
-    )
-    is_jpeg = len(data) >= 4 and data.startswith(b"\xff\xd8\xff")
-    is_webp = len(data) >= 16 and data[:4] == b"RIFF" and data[8:12] == b"WEBP"
-    is_avif = len(data) >= 16 and data[4:8] == b"ftyp" and data[8:12] in {b"avif", b"avis"}
-    if not (is_png or is_gif or is_jpeg or is_webp or is_avif):
-        raise SubmissionError(
-            "预览图不是有效的 PNG、JPEG、GIF、WebP 或 AVIF 图像 / "
-            "Preview image is not a valid PNG, JPEG, GIF, WebP, or AVIF image"
-        )
-
-
-def prepare_preview_url(value: str, client: HTTPClient) -> str:
-    preview = normalize_preview_url(value)
-    validate_preview_image(client.download_preview(preview))
-    return preview
-
-
 def parse_github_repository(value: str) -> tuple[str, str]:
     parsed = validate_http_url(value, "GitHub 仓库地址 / GitHub repository URL")
     if parsed.hostname.lower() not in {"github.com", "www.github.com"}:
@@ -445,13 +392,11 @@ def process_github_submission(
     fields: dict[str, str], client: HTTPClient
 ) -> SubmissionResult:
     repository_input = required_field(fields, GITHUB_REPOSITORY_FIELD)
-    preview = required_field(fields, PREVIEW_FIELD)
     require_checked_confirmations(
         fields,
         GITHUB_CONFIRMATION_FIELD,
         [PUBLIC_RELEASE_CONFIRMATION],
     )
-    preview = prepare_preview_url(preview, client)
     owner, repository = parse_github_repository(repository_input)
 
     repo = client.get_github_json(
@@ -511,7 +456,6 @@ def process_github_submission(
     plugin = {
         **manifest,
         "url": repository_url,
-        "preview": preview,
         "download": asset["browser_download_url"],
         "sha256": hashlib.sha256(package_data).hexdigest(),
     }
@@ -523,7 +467,6 @@ def process_external_submission(
 ) -> SubmissionResult:
     project_url = required_field(fields, PROJECT_URL_FIELD)
     download = required_field(fields, DOWNLOAD_FIELD)
-    preview = required_field(fields, PREVIEW_FIELD)
     name = required_field(fields, NAME_FIELD)
     short = validate_short(required_field(fields, SHORT_FIELD))
     version = required_field(fields, VERSION_FIELD)
@@ -537,7 +480,6 @@ def process_external_submission(
 
     reject_github_hosted_url(project_url, "项目地址 / Project URL")
     reject_github_hosted_url(download, "插件包下载地址 / Plugin package URL")
-    preview = prepare_preview_url(preview, client)
 
     package_data = client.download(download)
     manifest = inspect_plugin_package(package_data)
@@ -560,7 +502,6 @@ def process_external_submission(
         "version": version,
         "author": author,
         "url": project_url,
-        "preview": preview,
         "download": download,
         "sha256": hashlib.sha256(package_data).hexdigest(),
         "komari": manifest.get("komari", ""),

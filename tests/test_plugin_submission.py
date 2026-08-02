@@ -10,12 +10,6 @@ from unittest import mock
 from scripts import plugin_submission as submission
 
 
-VALID_PNG = (
-    b"\x89PNG\r\n\x1a\n"
-    b"\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
-)
-
-
 def make_plugin_zip(manifest=None, extra_entries=None):
     manifest = manifest or {
         "name": "Test Plugin",
@@ -42,7 +36,6 @@ def github_issue_body(repository="https://github.com/example/plugin"):
     return "".join(
         [
             issue_field(submission.GITHUB_REPOSITORY_FIELD, repository),
-            issue_field(submission.PREVIEW_FIELD, "https://cdn.example.com/preview.png"),
             issue_field(
                 submission.GITHUB_CONFIRMATION_FIELD,
                 "- [x] "
@@ -57,7 +50,6 @@ def external_issue_body(**overrides):
     values = {
         submission.PROJECT_URL_FIELD: "https://plugins.example.com/test",
         submission.DOWNLOAD_FIELD: "https://downloads.example.com/test.zip",
-        submission.PREVIEW_FIELD: "https://cdn.example.com/preview.png",
         submission.NAME_FIELD: "Test Plugin Listing",
         submission.SHORT_FIELD: "TestPlugin",
         submission.VERSION_FIELD: "1.2.3",
@@ -87,12 +79,6 @@ class FakeClient:
 
     def download(self, url):
         value = self.downloads[url]
-        if isinstance(value, Exception):
-            raise value
-        return value
-
-    def download_preview(self, url):
-        value = self.downloads.get(url, VALID_PNG)
         if isinstance(value, Exception):
             raise value
         return value
@@ -128,14 +114,6 @@ class IssueFormTests(unittest.TestCase):
     def test_repository_parser_rejects_subpaths(self):
         with self.assertRaises(submission.SubmissionError):
             submission.parse_github_repository("https://github.com/owner/plugin/releases")
-
-    def test_preview_blob_url_is_normalized_to_raw_github(self):
-        self.assertEqual(
-            submission.normalize_preview_url(
-                "https://github.com/imengying/Komari-Glass/blob/main/preview.png"
-            ),
-            "https://raw.githubusercontent.com/imengying/Komari-Glass/main/preview.png",
-        )
 
 
 class PackageTests(unittest.TestCase):
@@ -239,39 +217,6 @@ class SubmissionTests(unittest.TestCase):
         self.assertEqual(result.plugin["url"], "https://github.com/example/plugin")
         self.assertEqual(result.plugin["komari"], ">=1.0.0")
 
-    def test_github_submission_normalizes_and_validates_preview(self):
-        package = make_plugin_zip()
-        preview = "https://github.com/example/plugin/blob/main/preview.png"
-        raw_preview = "https://raw.githubusercontent.com/example/plugin/main/preview.png"
-        assets = [
-            {
-                "name": "plugin.zip",
-                "browser_download_url": "https://github.com/example/plugin/releases/download/v1/plugin.zip",
-                "data": package,
-            }
-        ]
-        client = self.github_client(assets)
-        client.downloads[raw_preview] = VALID_PNG
-        fields = submission.parse_issue_form(
-            github_issue_body().replace("https://cdn.example.com/preview.png", preview)
-        )
-
-        result = submission.process_github_submission(fields, client)
-
-        self.assertEqual(result.plugin["preview"], raw_preview)
-
-    def test_external_submission_rejects_non_image_preview(self):
-        package = make_plugin_zip()
-        preview = "https://cdn.example.com/preview.png"
-        with self.assertRaisesRegex(submission.SubmissionError, "预览图不是有效"):
-            submission.process_external_submission(
-                submission.parse_issue_form(external_issue_body()),
-                FakeClient(downloads={
-                    "https://downloads.example.com/test.zip": package,
-                    preview: b"not an image",
-                }),
-            )
-
     def test_github_submission_rejects_multiple_valid_zips(self):
         package = make_plugin_zip()
         assets = [
@@ -341,7 +286,6 @@ class CatalogAndOutputTests(unittest.TestCase):
             "version": "1.0.0",
             "author": "Author",
             "url": f"https://example.com/{short}",
-            "preview": "https://example.com/preview.png",
             "download": f"https://example.com/{short}.zip",
             "sha256": "a" * 64,
         }
