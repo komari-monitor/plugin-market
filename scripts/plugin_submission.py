@@ -299,7 +299,61 @@ def required_manifest_text(manifest: dict[str, Any], field: str) -> str:
     return value.strip()
 
 
-def inspect_plugin_package(package_data: bytes) -> dict[str, str]:
+# required_manifest_localized accepts either a non-empty string or an i18n
+# object with at least one non-empty value, mirroring the server-side
+# localizedText check so multilingual name/description/author manifests
+# (for example {"zh-CN": "...", "en": "..."}) pass validation.
+def required_manifest_localized(manifest: dict[str, Any], field: str) -> Any:
+    value = manifest.get(field)
+    if isinstance(value, str):
+        if value.strip():
+            return value.strip()
+    elif isinstance(value, dict):
+        for text in value.values():
+            if isinstance(text, str) and text.strip():
+                return value
+    raise SubmissionError(
+        f"komari-plugin.json 缺少有效的 {field} / komari-plugin.json is missing a valid {field}"
+    )
+
+
+def valid_description(manifest: dict[str, Any]) -> Any:
+    description = manifest.get("description", "")
+    if description is None:
+        return ""
+    if isinstance(description, str):
+        return description.strip()
+    if isinstance(description, dict):
+        if not any(isinstance(text, str) and text.strip() for text in description.values()):
+            raise SubmissionError(
+                "komari-plugin.json 的 description 缺少非空内容 / "
+                "komari-plugin.json description has no non-empty value"
+            )
+        return description
+    raise SubmissionError(
+        "komari-plugin.json 的 description 必须是字符串或多语言对象 / "
+        "komari-plugin.json description must be a string or an i18n object"
+    )
+
+
+# display_text renders a name/description/author value for comments and PR
+# bodies: plain strings pass through, i18n objects resolve to English, then
+# Chinese, then the first non-empty value.
+def display_text(value: Any) -> str:
+    if isinstance(value, str):
+        return value
+    if isinstance(value, dict):
+        for key in ("en", "zh_CN", "zh-CN"):
+            text = value.get(key)
+            if isinstance(text, str) and text.strip():
+                return text.strip()
+        for text in value.values():
+            if isinstance(text, str) and text.strip():
+                return text.strip()
+    return ""
+
+
+def inspect_plugin_package(package_data: bytes) -> dict[str, Any]:
     try:
         archive = zipfile.ZipFile(BytesIO(package_data))
     except (OSError, zipfile.BadZipFile) as error:
@@ -362,17 +416,11 @@ def inspect_plugin_package(package_data: bytes) -> dict[str, str]:
 
     if not isinstance(manifest, dict):
         raise SubmissionError("komari-plugin.json 必须是 JSON 对象 / komari-plugin.json must be a JSON object")
-    name = required_manifest_text(manifest, "name")
+    name = required_manifest_localized(manifest, "name")
     short = validate_short(required_manifest_text(manifest, "short"))
     version = required_manifest_text(manifest, "version")
-    author = required_manifest_text(manifest, "author")
-    description = manifest.get("description", "")
-    if description is None:
-        description = ""
-    if not isinstance(description, str):
-        raise SubmissionError(
-            "komari-plugin.json 的 description 必须是字符串 / komari-plugin.json description must be a string"
-        )
+    author = required_manifest_localized(manifest, "author")
+    description = valid_description(manifest)
     komari = manifest.get("komari", "")
     if not isinstance(komari, str):
         raise SubmissionError(
@@ -381,7 +429,7 @@ def inspect_plugin_package(package_data: bytes) -> dict[str, str]:
     return {
         "name": name,
         "short": short,
-        "description": description.strip(),
+        "description": description.strip() if isinstance(description, str) else description,
         "version": version,
         "author": author,
         "komari": komari.strip(),
@@ -548,7 +596,7 @@ def render_success_comment(result: SubmissionResult) -> str:
         "<!-- plugin-submission-validation -->",
         "## 自动检查通过 / Automated checks passed",
         "",
-        f"- 插件 / Plugin: {inline_code(plugin['name'])}",
+        f"- 插件 / Plugin: {inline_code(display_text(plugin['name']))}",
         f"- 唯一短名称 / Unique short name: {inline_code(plugin['short'])}",
         f"- 版本 / Version: {inline_code(plugin['version'])}",
         f"- 插件包 / Package: {inline_code(result.asset_name)}",
@@ -616,10 +664,10 @@ def render_pr_body(result: SubmissionResult, issue_number: int) -> str:
             "",
             "| Field | Value |",
             "| --- | --- |",
-            f"| Name | {inline_code(plugin['name'])} |",
+            f"| Name | {inline_code(display_text(plugin['name']))} |",
             f"| Short | {inline_code(plugin['short'])} |",
             f"| Version | {inline_code(plugin['version'])} |",
-            f"| Author | {inline_code(plugin['author'])} |",
+            f"| Author | {inline_code(display_text(plugin['author']))} |",
             f"| Komari constraint | {inline_code(plugin.get('komari') or 'Any')} |",
             f"| Source type | {source_label} |",
             f"| Package | {inline_code(result.asset_name)} |",

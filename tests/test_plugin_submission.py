@@ -173,6 +173,67 @@ class PackageTests(unittest.TestCase):
         with self.assertRaisesRegex(submission.SubmissionError, "不能为 default"):
             submission.inspect_plugin_package(package)
 
+    def test_inspect_accepts_i18n_name_description_author(self):
+        manifest = submission.inspect_plugin_package(
+            make_plugin_zip(
+                {
+                    "name": {"zh-CN": "MJPEG 实时状态", "en": "MJPEG Live Status"},
+                    "short": "mjpeg",
+                    "description": {"zh-CN": "中文描述", "en": "English description"},
+                    "version": "1.0.0",
+                    "author": {"zh-CN": "作者", "en": "Author"},
+                }
+            )
+        )
+        self.assertEqual(manifest["name"]["en"], "MJPEG Live Status")
+        self.assertEqual(manifest["author"]["zh-CN"], "作者")
+        self.assertEqual(manifest["description"]["en"], "English description")
+
+    def test_inspect_rejects_empty_i18n_name(self):
+        package = make_plugin_zip(
+            {
+                "name": {"zh-CN": "", "en": "  "},
+                "short": "Empty",
+                "version": "1.0.0",
+                "author": "Author",
+            }
+        )
+        with self.assertRaisesRegex(submission.SubmissionError, "缺少有效的 name"):
+            submission.inspect_plugin_package(package)
+
+    def test_inspect_rejects_empty_i18n_description(self):
+        package = make_plugin_zip(
+            {
+                "name": "N",
+                "short": "N",
+                "version": "1.0.0",
+                "author": "A",
+                "description": {"zh-CN": "", "en": ""},
+            }
+        )
+        with self.assertRaisesRegex(submission.SubmissionError, "description 缺少非空内容"):
+            submission.inspect_plugin_package(package)
+
+    def test_inspect_rejects_non_text_description(self):
+        package = make_plugin_zip(
+            {
+                "name": "N",
+                "short": "N",
+                "version": "1.0.0",
+                "author": "A",
+                "description": ["not", "text"],
+            }
+        )
+        with self.assertRaisesRegex(submission.SubmissionError, "description"):
+            submission.inspect_plugin_package(package)
+
+    def test_display_text_resolves_i18n_objects(self):
+        self.assertEqual(submission.display_text("Plain"), "Plain")
+        self.assertEqual(submission.display_text({"en": "EN", "zh-CN": "ZH"}), "EN")
+        self.assertEqual(submission.display_text({"zh-CN": "ZH", "ja": "JA"}), "ZH")
+        self.assertEqual(submission.display_text({"ja": "JA"}), "JA")
+        self.assertEqual(submission.display_text({}), "")
+
 
 class SubmissionTests(unittest.TestCase):
     repo_path = "/repos/example/plugin"
@@ -236,6 +297,31 @@ class SubmissionTests(unittest.TestCase):
                 submission.parse_issue_form(github_issue_body()),
                 self.github_client(assets),
             )
+
+    def test_github_submission_keeps_i18n_manifest_metadata(self):
+        package = make_plugin_zip(
+            {
+                "name": {"zh-CN": "MJPEG 实时状态", "en": "MJPEG Live Status"},
+                "short": "mjpeg",
+                "description": {"zh-CN": "中文描述", "en": "English description"},
+                "version": "1.0.0",
+                "author": {"zh-CN": "作者", "en": "Author"},
+            }
+        )
+        assets = [
+            {
+                "name": "mjpeg.zip",
+                "browser_download_url": "https://github.com/example/plugin/releases/download/v1/mjpeg.zip",
+                "data": package,
+            }
+        ]
+        result = submission.process_github_submission(
+            submission.parse_issue_form(github_issue_body()),
+            self.github_client(assets),
+        )
+        self.assertEqual(result.plugin["name"]["en"], "MJPEG Live Status")
+        self.assertIn("MJPEG Live Status", submission.render_success_comment(result))
+        self.assertIn("MJPEG Live Status", submission.render_pr_body(result, 42))
 
     def test_private_github_repository_is_rejected(self):
         client = FakeClient(github={self.repo_path: {"private": True}})
