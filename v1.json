@@ -1,7 +1,18 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-02T05:59:01.395Z",
+  "updated_at": "2026-08-05T16:19:21.945Z",
   "plugins": [
+    {
+      "name": "Domain Watch",
+      "short": "domain-watch",
+      "description": "域名监控插件：基于 RDAP 协议的 Whois 查询与域名续费到期提醒。",
+      "version": "1.0.0",
+      "author": "Geekertao",
+      "komari": ">=1.0.0",
+      "url": "https://github.com/Geekertao/komari-plugin-domain-watch",
+      "download": "https://github.com/Geekertao/komari-plugin-domain-watch/releases/download/v1.0.0/domain-watch-1.0.0.zip",
+      "sha256": "87cf279541df81c0bb5c2786f4861756ec8eeb431f0fc11445e624714caf6398"
+    },
     {
       "name": {
         "zh-CN": "MJPEG 实时状态",
