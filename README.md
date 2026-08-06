@@ -73,3 +73,17 @@ Provide the project URL, package download URL, plugin name, unique plugin short 
 现有 Release 更新工作流每六小时运行一次。它只处理目录中由 GitHub 仓库支持、已有安装包和 SHA-256 的插件，使用仓库地址、最新 Release 标签和当前资源名构造下载地址，并以 GitHub API 资源地址作为后备。下载包通过根 manifest、`short`、版本和 SHA-256 校验后，Action 才会创建 PR。
 
 The existing Release update workflow runs every six hours. It only processes catalog plugins backed by GitHub repositories with an installable package and SHA-256. It constructs a download URL from the repository URL, latest Release tag and current asset name, with the GitHub API asset URL as a fallback. A PR is created only after the package passes root-manifest, `short`, version and SHA-256 checks.
+
+## AI 插件包审核 / AI Package Review
+
+提交插件或检测到 Release 更新后，目录 PR 会自动派发 `Review Plugin Packages` 工作流。该工作流重新下载变更插件包、核对目录中的 SHA-256，然后直接调用组织现有的 OpenAI Responses 模型审查 ZIP 中的 manifest 和文本源码，并把中文审核意见更新到 PR 评论中。它不会执行插件代码，也不会自动合并或拒绝 PR；现有的确定性校验仍是上架流程的依据。
+
+After a plugin submission or Release update creates a catalog PR, the `Review Plugin Packages` workflow downloads the changed packages again, checks their catalog SHA-256 values, and calls the organization's existing OpenAI Responses model to inspect their manifests and text source. It posts a Chinese review comment to the PR. It never executes plugin code and does not automatically merge or reject a PR; existing deterministic validation remains authoritative.
+
+在组织或仓库设置中配置以下值：
+
+- Secret `OPENAI_API_KEY`：Responses 审核调用所需的 OpenAI API key。
+- Secret `OPENAI_BASE_URL`：Responses API 的基础地址。`https://api.openai.com`、`https://api.openai.com/`、`https://api.openai.com/v1`、`https://api.openai.com/v1/` 都会自动补全为 `https://api.openai.com/v1/responses`。
+- Variable `OPENAI_MODEL`：可选的 Responses 模型；未设置时使用项目现有默认值 `gpt-4o-mini`。
+
+Set the same secret and optional variables at the organization or repository level.

@@ -1,0 +1,137 @@
+name: Review Plugin Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      pull_request_number:
+        description: Bot-generated plugin catalog pull request number
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load bot pull request
+        id: pull-request
+        uses: actions/github-script@v7
+        env:
+          PULL_REQUEST_NUMBER: ${{ inputs.pull_request_number }}
+        with:
+          script: |
+            const pull = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: Number(process.env.PULL_REQUEST_NUMBER),
+            });
+            const allowedBranch = /^bot\/(plugin-submission-\d+|update-plugin-releases)$/.test(pull.data.head.ref);
+            if (pull.data.head.repo?.full_name !== context.repo.owner + "/" + context.repo.repo || !allowedBranch) {
+              throw new Error("AI package review only accepts bot-generated catalog pull requests");
+            }
+            core.setOutput("number", String(pull.data.number));
+            core.setOutput("base_sha", pull.data.base.sha);
+            core.setOutput("head_sha", pull.data.head.sha);
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Fetch bot pull request revision
+        run: git fetch --no-tags origin "${{ steps.pull-request.outputs.head_sha }}"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare verified plugin packages
+        id: prepare
+        run: >-
+          node scripts/prepare-ai-review-packages.mjs
+          --base-sha="${{ steps.pull-request.outputs.base_sha }}"
+          --head-sha="${{ steps.pull-request.outputs.head_sha }}"
+          --directory=.ai-review
+
+      - name: Check OpenAI configuration
+        id: openai
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+        run: |
+          if [ -n "$OPENAI_API_KEY" ] && [ -n "$OPENAI_BASE_URL" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Review plugin packages with Responses API
+        id: review
+        if: steps.prepare.outcome == 'success' && steps.openai.outputs.enabled == 'true'
+        continue-on-error: true
+        run: >-
+          node scripts/review-plugin-packages.mjs
+          --directory=.ai-review
+          --output="$RUNNER_TEMP/plugin-package-ai-review.md"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+
+      - name: Post AI review
+        if: always() && steps.openai.outputs.enabled == 'true'
+        uses: actions/github-script@v7
+        env:
+          PULL_REQUEST_NUMBER: ${{ steps.pull-request.outputs.number }}
+          PREPARE_OUTCOME: ${{ steps.prepare.outcome }}
+          REVIEW_OUTCOME: ${{ steps.review.outcome }}
+          REVIEW_PATH: ${{ runner.temp }}/plugin-package-ai-review.md
+        with:
+          script: |
+            const fs = require("fs");
+            const review = fs.existsSync(process.env.REVIEW_PATH)
+              ? fs.readFileSync(process.env.REVIEW_PATH, "utf8").trim()
+              : "";
+            const quote = (text) => text.split(/\r?\n/).map((line) => {
+              const escaped = line.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+              return escaped ? `> ${escaped}` : ">";
+            }).join("\n");
+            const body = [
+              "<!-- plugin-ai-package-review -->",
+              "## AI 锐评与安全审核 / AI package review",
+              "",
+              review
+                ? quote(review)
+                : `> 审核未完成：准备包步骤为 ${process.env.PREPARE_OUTCOME}，Responses 审核步骤为 ${process.env.REVIEW_OUTCOME}。请查看本次 workflow 日志。`,
+              "",
+              "AI 审核仅供人工决策参考，目录的确定性校验结果仍为准。 / AI review is advisory; deterministic catalog checks remain authoritative.",
+            ].join("\n");
+            const issueNumber = Number(process.env.PULL_REQUEST_NUMBER);
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              per_page: 100,
+            });
+            const existing = [...comments].reverse().find((comment) =>
+              comment.user?.type === "Bot" && comment.body?.includes("<!-- plugin-ai-package-review -->"),
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body,
+              });
+            }
