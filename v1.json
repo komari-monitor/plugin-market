@@ -1,17 +1,34 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-05T16:19:21.945Z",
+  "updated_at": "2026-08-06T09:04:30.173Z",
   "plugins": [
     {
       "name": "Domain Watch",
       "short": "domain-watch",
       "description": "域名监控插件：基于 RDAP 协议的 Whois 查询与域名续费到期提醒。",
-      "version": "1.0.0",
+      "version": "1.0.2",
       "author": "Geekertao",
       "komari": ">=1.0.0",
       "url": "https://github.com/Geekertao/komari-plugin-domain-watch",
-      "download": "https://github.com/Geekertao/komari-plugin-domain-watch/releases/download/v1.0.0/domain-watch-1.0.0.zip",
-      "sha256": "87cf279541df81c0bb5c2786f4861756ec8eeb431f0fc11445e624714caf6398"
+      "download": "https://github.com/Geekertao/komari-plugin-domain-watch/releases/download/v1.0.2/domain-watch-1.0.2.zip",
+      "sha256": "e0e34b976c912335bd5bdf1ed295c9d32eb49e19762ebc866020d893979e5284"
+    },
+    {
+      "name": {
+        "zh_CN": "GitHub 代理加速",
+        "en": "GitHub Proxy"
+      },
+      "short": "github-proxy",
+      "description": {
+        "zh_CN": "为插件市场和主题市场的 GitHub 下载链接添加代理前缀，加速下载",
+        "en": "Add proxy prefix to GitHub download URLs in plugin/theme market"
+      },
+      "version": "1.3.3",
+      "author": "komari",
+      "komari": ">=1.0.0",
+      "url": "https://github.com/ting1e/komari-github-proxy",
+      "download": "https://github.com/ting1e/komari-github-proxy/releases/download/v1.3.3/komari-github-proxy-v1.3.3.zip",
+      "sha256": "696736900d8c568d8df94340c7755422bc05a627b39fb196745b70862e3b70f5"
     },
     {
       "name": {
