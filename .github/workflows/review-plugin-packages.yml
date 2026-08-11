@@ -69,18 +69,26 @@ jobs:
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Review plugin packages with Responses API
+      - name: Resolve Responses API endpoint
+        id: endpoint
+        env:
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+        run: |
+          node -e 'const raw = process.env.OPENAI_BASE_URL || ""; const base = raw.trim().replace(/\/+$/, ""); if (!base) process.exit(0); const endpoint = base.endsWith("/responses") ? base : base.endsWith("/v1") ? base + "/responses" : base + "/v1/responses"; console.log("endpoint=" + endpoint);' >> "$GITHUB_OUTPUT"
+
+      - name: Review plugin packages with Codex
         id: review
         if: steps.prepare.outcome == 'success' && steps.openai.outputs.enabled == 'true'
         continue-on-error: true
-        run: >-
-          node scripts/review-plugin-packages.mjs
-          --directory=.ai-review
-          --output="$RUNNER_TEMP/plugin-package-ai-review.md"
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
-          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          responses-api-endpoint: ${{ steps.endpoint.outputs.endpoint }}
+          permission-profile: ":read-only"
+          prompt-file: .github/prompts/plugin-package-codex-review.md
+          output-file: ${{ runner.temp }}/plugin-package-ai-review.md
+          model: ${{ vars.OPENAI_MODEL }}
+          allow-bots: true
 
       - name: Post AI review
         if: always() && steps.openai.outputs.enabled == 'true'
@@ -93,9 +101,10 @@ jobs:
         with:
           script: |
             const fs = require("fs");
-            const review = fs.existsSync(process.env.REVIEW_PATH)
+            const reviewText = fs.existsSync(process.env.REVIEW_PATH)
               ? fs.readFileSync(process.env.REVIEW_PATH, "utf8").trim()
               : "";
+            const review = /阻止上架|需要人工复核|可接受/.test(reviewText) ? reviewText : "";
             const quote = (text) => text.split(/\r?\n/).map((line) => {
               const escaped = line.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
               return escaped ? `> ${escaped}` : ">";
@@ -106,7 +115,7 @@ jobs:
               "",
               review
                 ? quote(review)
-                : `> 审核未完成：准备包步骤为 ${process.env.PREPARE_OUTCOME}，Responses 审核步骤为 ${process.env.REVIEW_OUTCOME}。请查看本次 workflow 日志。`,
+                : `> 审核未完成：准备包步骤为 ${process.env.PREPARE_OUTCOME}，Codex 审核步骤为 ${process.env.REVIEW_OUTCOME}。请查看本次 workflow 日志。`,
               "",
               "AI 审核仅供人工决策参考，目录的确定性校验结果仍为准。 / AI review is advisory; deterministic catalog checks remain authoritative.",
             ].join("\n");

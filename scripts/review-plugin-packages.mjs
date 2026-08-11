@@ -56,7 +56,7 @@ function packageContext(directory, target, remaining) {
     let data;
     try {
       data = execFileSync("unzip", ["-p", packagePath, entry], {
-        maxBuffer: Math.min(MAX_FILE_CHARS, available) + 1,
+        maxBuffer: MAX_INPUT_CHARS + 1,
       });
     } catch {
       continue;
