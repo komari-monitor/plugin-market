@@ -76,14 +76,14 @@ The existing Release update workflow runs every six hours. It only processes cat
 
 ## AI 插件包审核 / AI Package Review
 
-提交插件或检测到 Release 更新后，目录 PR 会自动派发 `Review Plugin Packages` 工作流。该工作流重新下载变更插件包、核对目录中的 SHA-256，然后直接调用组织现有的 OpenAI Responses 模型审查 ZIP 中的 manifest 和文本源码，并把中文审核意见更新到 PR 评论中。它不会执行插件代码，也不会自动合并或拒绝 PR；现有的确定性校验仍是上架流程的依据。
+提交插件或检测到 Release 更新后，目录 PR 会自动派发 `Review Plugin Packages` 工作流。该工作流重新下载变更插件包、核对目录中的 SHA-256，然后通过 `openai/codex-action` 让 Codex 直接读取 ZIP 内的完整源码与 manifest，并把中文审核意见更新到 PR 评论中。它不会执行插件代码，也不会自动合并或拒绝 PR；现有的确定性校验仍是上架流程的依据。
 
-After a plugin submission or Release update creates a catalog PR, the `Review Plugin Packages` workflow downloads the changed packages again, checks their catalog SHA-256 values, and calls the organization's existing OpenAI Responses model to inspect their manifests and text source. It posts a Chinese review comment to the PR. It never executes plugin code and does not automatically merge or reject a PR; existing deterministic validation remains authoritative.
+After a plugin submission or Release update creates a catalog PR, the `Review Plugin Packages` workflow downloads the changed packages again, checks their catalog SHA-256 values, and runs Codex through `openai/codex-action` so it can inspect the complete source and manifests inside the ZIPs. It posts a Chinese review comment to the PR. It never executes plugin code and does not automatically merge or reject a PR; existing deterministic validation remains authoritative.
 
 在组织或仓库设置中配置以下值：
 
-- Secret `OPENAI_API_KEY`：Responses 审核调用所需的 OpenAI API key。
+- Secret `OPENAI_API_KEY`：Codex 审核调用所需的 OpenAI API key。
 - Secret `OPENAI_BASE_URL`：Responses API 的基础地址。`https://api.openai.com`、`https://api.openai.com/`、`https://api.openai.com/v1`、`https://api.openai.com/v1/` 都会自动补全为 `https://api.openai.com/v1/responses`。
-- Variable `OPENAI_MODEL`：可选的 Responses 模型；未设置时使用项目现有默认值 `gpt-4o-mini`。
+- Variable `OPENAI_MODEL`：可选的 Codex 模型；未设置时使用 Codex 默认模型。
 
 Set the same secret and optional variables at the organization or repository level.

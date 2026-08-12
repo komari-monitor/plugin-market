@@ -87,6 +87,8 @@ jobs:
           permission-profile: ":read-only"
           prompt-file: .github/prompts/plugin-package-codex-review.md
           output-file: ${{ runner.temp }}/plugin-package-ai-review.md
+          output-schema-file: .github/schemas/plugin-package-review.schema.json
+          codex-args: '["--config", "web_search=disabled"]'
           model: ${{ vars.OPENAI_MODEL }}
           allow-bots: true
 
@@ -104,7 +106,12 @@ jobs:
             const reviewText = fs.existsSync(process.env.REVIEW_PATH)
               ? fs.readFileSync(process.env.REVIEW_PATH, "utf8").trim()
               : "";
-            const review = /阻止上架|需要人工复核|可接受/.test(reviewText) ? reviewText : "";
+            let review = "";
+            try {
+              const parsed = JSON.parse(reviewText);
+              if (typeof parsed?.review === "string") review = parsed.review.trim();
+            } catch {}
+            if (!review && /阻止上架|需要人工复核|可接受/.test(reviewText)) review = reviewText;
             const quote = (text) => text.split(/\r?\n/).map((line) => {
               const escaped = line.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
               return escaped ? `> ${escaped}` : ">";
