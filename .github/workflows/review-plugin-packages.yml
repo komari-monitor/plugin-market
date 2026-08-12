@@ -140,13 +140,12 @@ jobs:
             };
             let review = parseReview(reviewText);
             if (!review && /阻止上架|需要人工复核|可接受/.test(reviewText)) review = reviewText;
-            const escapeHtml = (text) => text.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             const body = [
               "<!-- plugin-ai-package-review -->",
               "## AI 锐评与安全审核 / AI package review",
               "",
               review
-                ? escapeHtml(review)
+                ? review
                 : `> 审核未完成：准备包步骤为 ${process.env.PREPARE_OUTCOME}，Codex 审核步骤为 ${process.env.REVIEW_OUTCOME}。请查看本次 workflow 日志。`,
               "",
               "AI 审核仅供人工决策参考，目录的确定性校验结果仍为准。 / AI review is advisory; deterministic catalog checks remain authoritative.",
