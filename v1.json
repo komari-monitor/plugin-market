@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-12T00:59:23.254Z",
+  "updated_at": "2026-08-12T02:55:43.542Z",
   "plugins": [
     {
       "name": "Cloudflare Tunnel",
@@ -9,12 +9,12 @@
         "zh-CN": "在 Komari 中下载、更新并管理 Cloudflare Tunnel。",
         "en": "Download, update, and manage Cloudflare Tunnel from Komari."
       },
-      "version": "1.0.2",
+      "version": "1.1.0",
       "author": "Akizon77",
       "komari": ">=1.4.0",
       "url": "https://github.com/Akizon77/cloudflare-tunnel",
-      "download": "https://github.com/Akizon77/cloudflare-tunnel/releases/download/v1.0.2/cloudflare-tunnel-1.0.2.zip",
-      "sha256": "b14093bb6b2859cb3a7ba9efd964d6ee000c32f348a00b662af1aa265639c83d"
+      "download": "https://github.com/Akizon77/cloudflare-tunnel/releases/download/v1.1.0/cloudflare-tunnel-1.1.0.zip",
+      "sha256": "2068ad4ca1cd3665d08599363635cf444ac912a389c65d4faa8262dbe37bf30d"
     },
     {
       "name": "Domain Watch",
