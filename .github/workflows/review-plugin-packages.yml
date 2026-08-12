@@ -106,11 +106,39 @@ jobs:
             const reviewText = fs.existsSync(process.env.REVIEW_PATH)
               ? fs.readFileSync(process.env.REVIEW_PATH, "utf8").trim()
               : "";
-            let review = "";
-            try {
-              const parsed = JSON.parse(reviewText);
-              if (typeof parsed?.review === "string") review = parsed.review.trim();
-            } catch {}
+            const parseReview = (text) => {
+              let candidate = text;
+              const start = text.indexOf("{");
+              if (start !== -1) {
+                let depth = 0;
+                let inString = false;
+                let escaped = false;
+                for (let i = start; i < text.length; i++) {
+                  const ch = text[i];
+                  if (inString) {
+                    if (escaped) escaped = false;
+                    else if (ch === "\\") escaped = true;
+                    else if (ch === '"') inString = false;
+                  } else if (ch === '"') {
+                    inString = true;
+                  } else if (ch === "{") {
+                    depth++;
+                  } else if (ch === "}") {
+                    depth--;
+                    if (depth === 0) {
+                      candidate = text.slice(start, i + 1);
+                      break;
+                    }
+                  }
+                }
+              }
+              try {
+                const parsed = JSON.parse(candidate);
+                if (typeof parsed?.review === "string") return parsed.review.trim();
+              } catch {}
+              return "";
+            };
+            let review = parseReview(reviewText);
             if (!review && /阻止上架|需要人工复核|可接受/.test(reviewText)) review = reviewText;
             const escapeHtml = (text) => text.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             const body = [
