@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-12T00:55:56.534Z",
+  "updated_at": "2026-08-12T00:59:23.254Z",
   "plugins": [
     {
       "name": "Cloudflare Tunnel",
@@ -43,6 +43,23 @@
       "url": "https://github.com/ting1e/komari-github-proxy",
       "download": "https://github.com/ting1e/komari-github-proxy/releases/download/v1.3.3/komari-github-proxy-v1.3.3.zip",
       "sha256": "696736900d8c568d8df94340c7755422bc05a627b39fb196745b70862e3b70f5"
+    },
+    {
+      "name": {
+        "zh-CN": "通行密钥",
+        "en": "Passkey"
+      },
+      "short": "komari-passkey",
+      "description": {
+        "zh-CN": "为 Komari 提供通行密钥登录。安装后请前往账户页面添加并启用通行密钥。需要 Komari >=1.4.3。",
+        "en": "Passkey sign-in for Komari. After installation, open the Account page to add and enable a Passkey. Requires Komari >=1.4.3."
+      },
+      "version": "0.1.12",
+      "author": "Akizon77",
+      "komari": ">=1.4.3",
+      "url": "https://github.com/Akizon77/komari-passkey",
+      "download": "https://github.com/Akizon77/komari-passkey/releases/download/v0.1.12/komari-passkey-0.1.12.zip",
+      "sha256": "5f498b58df2aa19a48203dff5e6f02561ca7715b2f95fdadc468be642cc81fd2"
     },
     {
       "name": {
