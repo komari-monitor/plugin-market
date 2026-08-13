@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-12T02:55:43.542Z",
+  "updated_at": "2026-08-13T07:15:58.926Z",
   "plugins": [
     {
       "name": "Cloudflare Tunnel",
@@ -77,6 +77,25 @@
       "url": "https://github.com/Akizon77/mjpeg-plugin",
       "download": "https://github.com/Akizon77/mjpeg-plugin/releases/download/v1.1.0/mjpeg-plugin.zip",
       "sha256": "94b6cb3952da82ed91dfec4781332c57bb19d3937b936a725a483aa17a4180d1"
+    },
+    {
+      "name": {
+        "zh-CN": "流量定期报告",
+        "zh-TW": "流量定期報告",
+        "en": "Scheduled Traffic Reports"
+      },
+      "short": "traffic-report",
+      "description": {
+        "zh-CN": "按自定义计划发送节点流量日报、周报和月报。",
+        "zh-TW": "依自訂排程發送節點流量日報、週報和月報。",
+        "en": "Send daily, weekly, and monthly traffic reports for selected nodes on custom schedules."
+      },
+      "version": "0.1.0",
+      "author": "Komari Monitor",
+      "komari": ">=1.4.3",
+      "url": "https://github.com/Akizon77/komari-traffic-report-plugin",
+      "download": "https://github.com/Akizon77/komari-traffic-report-plugin/releases/download/v0.1.0/traffic-report-0.1.0.zip",
+      "sha256": "8c8ff265cdfcb005f5e90e9aaa58c142b17f1cc919a498b297c1286f8aa1c4d7"
     }
   ]
 }
