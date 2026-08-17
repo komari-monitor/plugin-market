@@ -1,7 +1,24 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-13T07:15:58.926Z",
+  "updated_at": "2026-08-16T09:13:42.624Z",
   "plugins": [
+    {
+      "name": {
+        "zh_CN": "Komari DDNS",
+        "en": "Komari DDNS"
+      },
+      "short": "cf-ddns",
+      "description": {
+        "zh_CN": "根据 Komari 节点上报的公网 IP，自动更新 Cloudflare DNS 解析记录，实现动态域名解析。",
+        "en": "Automatically update Cloudflare DNS records from the public IP reported by a Komari node, providing dynamic DNS."
+      },
+      "version": "0.1.0",
+      "author": "穿云箭",
+      "komari": ">=1.4.0",
+      "url": "https://github.com/yunjianj/Komari-DDNS",
+      "download": "https://github.com/yunjianj/Komari-DDNS/releases/download/v0.1.0/komari-ddns-0.1.0.zip",
+      "sha256": "ac96142601eee168f72f258cb52cb75b368da40f2160998fdf4e7ccc098122b0"
+    },
     {
       "name": "Cloudflare Tunnel",
       "short": "cloudflare-tunnel",
