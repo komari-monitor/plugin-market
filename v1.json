@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-14T01:02:03.043Z",
+  "updated_at": "2026-09-15T06:02:45.124Z",
   "plugins": [
     {
       "name": {
@@ -54,6 +54,17 @@
       "url": "https://github.com/Geekertao/komari-plugin-domain-watch",
       "download": "https://github.com/Geekertao/komari-plugin-domain-watch/releases/download/v1.0.2/domain-watch-1.0.2.zip",
       "sha256": "e0e34b976c912335bd5bdf1ed295c9d32eb49e19762ebc866020d893979e5284"
+    },
+    {
+      "name": "1.5.x 后台 404 修复",
+      "short": "fix-1-5-0-theme-404",
+      "description": "修复1.5.0使用第三方主题进入后台404",
+      "version": "1.0.0",
+      "author": "Akizon77",
+      "url": "https://ss.akz.moe",
+      "download": "https://b2.akz.moe/awesome-pictures/komari-screenshot/fix-1-5-0-theme-404.zip",
+      "sha256": "e5794c56c1a47922afdf6b81b5930b6097c56e648a816ff6aa741615650d3abb",
+      "komari": ""
     },
     {
       "name": {
