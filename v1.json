@@ -1,7 +1,18 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-15T06:02:45.124Z",
+  "updated_at": "2026-09-15T07:06:11.965Z",
   "plugins": [
+    {
+      "name": "自定义后台路径",
+      "short": "admin-path",
+      "description": "自定义 Komari 后台页面路径，并关闭原 /admin 入口。",
+      "version": "1.0.0",
+      "author": "Kristen",
+      "komari": "",
+      "url": "https://github.com/Grandova/Backend-Customize-path-For-Komari",
+      "download": "https://github.com/Grandova/Backend-Customize-path-For-Komari/releases/download/v1.0.0/komari-plugin-admin-path-v1.0.0.zip",
+      "sha256": "a1a825f1e588f2458f6a8e7983d8fb3680ad1e9ee0917e6e1128533c7c0526e1"
+    },
     {
       "name": {
         "zh_CN": "Komari DDNS",
