@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-15T07:06:11.965Z",
+  "updated_at": "2026-09-20T01:59:53.664Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -110,6 +110,23 @@
       "url": "https://github.com/Akizon77/komari-passkey",
       "download": "https://github.com/Akizon77/komari-passkey/releases/download/v0.1.13/komari-passkey-0.1.13.zip",
       "sha256": "eee8f160caa2cd6b0d32e90ef2c0c3204c4db274fe26b121fa90f86ffccd6fd9"
+    },
+    {
+      "name": {
+        "zh-CN": "负载通知",
+        "en": "Load Notifications"
+      },
+      "short": "load-notification",
+      "description": {
+        "zh-CN": "基于 queryMetrics 的可编排指标告警插件",
+        "en": "Composable metric alerts powered by queryMetrics"
+      },
+      "version": "0.2.1",
+      "author": "Akizon77",
+      "komari": ">=1.4.3",
+      "url": "https://github.com/Akizon77/komari-load-notification-plugin",
+      "download": "https://github.com/Akizon77/komari-load-notification-plugin/releases/download/v0.2.1/load-notification-0.2.1.zip",
+      "sha256": "746f067ba266b0dbf08c2b1090e3215466a2ec87d63d2558f86692de82b7be69"
     },
     {
       "name": {
