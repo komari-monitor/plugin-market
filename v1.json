@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-20T01:59:53.664Z",
+  "updated_at": "2026-09-20T05:51:59.091Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -12,6 +12,29 @@
       "url": "https://github.com/Grandova/Backend-Customize-path-For-Komari",
       "download": "https://github.com/Grandova/Backend-Customize-path-For-Komari/releases/download/v1.0.0/komari-plugin-admin-path-v1.0.0.zip",
       "sha256": "a1a825f1e588f2458f6a8e7983d8fb3680ad1e9ee0917e6e1128533c7c0526e1"
+    },
+    {
+      "name": {
+        "zh_CN": "Bark 通知",
+        "zh_TW": "Bark 通知",
+        "en": "Bark Notification",
+        "ja_JP": "Bark 通知",
+        "id_ID": "Notifikasi Bark"
+      },
+      "short": "bark-notification-plugin",
+      "description": {
+        "zh_CN": "通过 Bark 发送 Komari 通知",
+        "zh_TW": "透過 Bark 傳送 Komari 通知",
+        "en": "Send Komari notifications through Bark",
+        "ja_JP": "Bark で Komari 通知を送信します",
+        "id_ID": "Kirim notifikasi Komari melalui Bark"
+      },
+      "version": "1.0.0",
+      "author": "Akizon77",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/Akizon77/komari-notification-plugins",
+      "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/bark-notification-plugin.zip",
+      "sha256": "f87b9c25734afd6196e10076eef8da379a6808185b60a058b175e0a4e680b1f3"
     },
     {
       "name": {
@@ -65,6 +88,29 @@
       "url": "https://github.com/Geekertao/komari-plugin-domain-watch",
       "download": "https://github.com/Geekertao/komari-plugin-domain-watch/releases/download/v1.0.2/domain-watch-1.0.2.zip",
       "sha256": "e0e34b976c912335bd5bdf1ed295c9d32eb49e19762ebc866020d893979e5284"
+    },
+    {
+      "name": {
+        "zh_CN": "Email 通知",
+        "zh_TW": "Email 通知",
+        "en": "Email Notification",
+        "ja_JP": "メール通知",
+        "id_ID": "Notifikasi Email"
+      },
+      "short": "email-notification-plugin",
+      "description": {
+        "zh_CN": "通过 SMTP 发送 Komari 通知",
+        "zh_TW": "透過 SMTP 傳送 Komari 通知",
+        "en": "Send Komari notifications through SMTP",
+        "ja_JP": "SMTP で Komari 通知を送信します",
+        "id_ID": "Kirim notifikasi Komari melalui SMTP"
+      },
+      "version": "1.0.0",
+      "author": "Akizon77",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/Akizon77/komari-notification-plugins",
+      "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/email-notification-plugin.zip",
+      "sha256": "3ede48d5f5f1e43de7dc6fdb2685191c3e66bdb383355a2c45d6cfcf95a477a0"
     },
     {
       "name": "1.5.x 后台 404 修复",
@@ -144,6 +190,75 @@
       "url": "https://github.com/Akizon77/mjpeg-plugin",
       "download": "https://github.com/Akizon77/mjpeg-plugin/releases/download/v1.1.0/mjpeg-plugin.zip",
       "sha256": "94b6cb3952da82ed91dfec4781332c57bb19d3937b936a725a483aa17a4180d1"
+    },
+    {
+      "name": {
+        "zh_CN": "Server酱³ 通知",
+        "zh_TW": "Server醬³ 通知",
+        "en": "ServerChan3 Notification",
+        "ja_JP": "Server酱³ 通知",
+        "id_ID": "Notifikasi ServerChan3"
+      },
+      "short": "serverchan3-notification-plugin",
+      "description": {
+        "zh_CN": "通过 Server酱³ 发送 Komari 通知",
+        "zh_TW": "透過 Server醬³ 傳送 Komari 通知",
+        "en": "Send Komari notifications through ServerChan3",
+        "ja_JP": "Server酱³ で Komari 通知を送信します",
+        "id_ID": "Kirim notifikasi Komari melalui ServerChan3"
+      },
+      "version": "1.0.0",
+      "author": "Akizon77",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/Akizon77/komari-notification-plugins",
+      "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/serverchan3-notification-plugin.zip",
+      "sha256": "c638d3c16043c92dcffd73096ccfd82e1e09dd80ebc1fb938a331b993df59606"
+    },
+    {
+      "name": {
+        "zh_CN": "Server酱 Turbo 通知",
+        "zh_TW": "Server醬 Turbo 通知",
+        "en": "ServerChan Turbo Notification",
+        "ja_JP": "Server酱 Turbo 通知",
+        "id_ID": "Notifikasi ServerChan Turbo"
+      },
+      "short": "serverchanturbo-notification-plugin",
+      "description": {
+        "zh_CN": "通过 Server酱 Turbo 发送 Komari 通知",
+        "zh_TW": "透過 Server醬 Turbo 傳送 Komari 通知",
+        "en": "Send Komari notifications through ServerChan Turbo",
+        "ja_JP": "Server酱 Turbo で Komari 通知を送信します",
+        "id_ID": "Kirim notifikasi Komari melalui ServerChan Turbo"
+      },
+      "version": "1.0.0",
+      "author": "Akizon77",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/Akizon77/komari-notification-plugins",
+      "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/serverchanturbo-notification-plugin.zip",
+      "sha256": "edd852691de0dcf10ae09fbda7ae061690bf89e1159bea757f1e7d1bec3d048a"
+    },
+    {
+      "name": {
+        "zh_CN": "Telegram 通知",
+        "zh_TW": "Telegram 通知",
+        "en": "Telegram Notification",
+        "ja_JP": "Telegram 通知",
+        "id_ID": "Notifikasi Telegram"
+      },
+      "short": "telegram-notification-plugin",
+      "description": {
+        "zh_CN": "通过 Telegram Bot 发送 Komari 通知",
+        "zh_TW": "透過 Telegram Bot 傳送 Komari 通知",
+        "en": "Send Komari notifications through a Telegram bot",
+        "ja_JP": "Telegram Bot で Komari 通知を送信します",
+        "id_ID": "Kirim notifikasi Komari melalui bot Telegram"
+      },
+      "version": "1.0.0",
+      "author": "Akizon77",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/Akizon77/komari-notification-plugins",
+      "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/telegram-notification-plugin.zip",
+      "sha256": "83945127387e25c6d4df2c36d4bfb9d9cfd49e0c8809bddd4f3fb30358d1bb0a"
     },
     {
       "name": {
