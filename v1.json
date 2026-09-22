@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-20T05:51:59.091Z",
+  "updated_at": "2026-09-22T05:57:32.081Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -139,6 +139,23 @@
       "url": "https://github.com/ting1e/komari-github-proxy",
       "download": "https://github.com/ting1e/komari-github-proxy/releases/download/v1.3.3/komari-github-proxy-v1.3.3.zip",
       "sha256": "696736900d8c568d8df94340c7755422bc05a627b39fb196745b70862e3b70f5"
+    },
+    {
+      "name": {
+        "zh_CN": "一次性验证码登录",
+        "en": "One-time Code Login"
+      },
+      "short": "komari-otp-login",
+      "description": {
+        "zh_CN": "通过 Komari 已配置的通知渠道发送一次性验证码登录。验证码有效期为 3 分钟。",
+        "en": "Sign in with a one-time code sent through a configured Komari notification channel. Codes expire after three minutes."
+      },
+      "version": "1.0.0",
+      "author": "Akizon77",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/Akizon77/komari-otp-login",
+      "download": "https://github.com/Akizon77/komari-otp-login/releases/download/v1.0.0/komari-otp-login-1.0.0.zip",
+      "sha256": "634d1bcd8fb41a566d6e4073e65d40a7485dc9e8f73b76cf9ed3fbf9a01efe74"
     },
     {
       "name": {
