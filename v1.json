@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-26T14:05:25.876Z",
+  "updated_at": "2026-09-26T15:08:59.217Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -156,6 +156,35 @@
       "url": "https://github.com/ting1e/komari-github-proxy",
       "download": "https://github.com/ting1e/komari-github-proxy/releases/download/v1.3.3/komari-github-proxy-v1.3.3.zip",
       "sha256": "696736900d8c568d8df94340c7755422bc05a627b39fb196745b70862e3b70f5"
+    },
+    {
+      "name": {
+        "zh_CN": "Gotify 通知",
+        "zh_TW": "Gotify 通知",
+        "en": "Gotify Notification",
+        "ja_JP": "Gotify 通知",
+        "id_ID": "Notifikasi Gotify"
+      },
+      "short": "gotify-notification-plugin",
+      "description": {
+        "zh_CN": "通过 Gotify 推送 Komari 通知",
+        "zh_TW": "透過 Gotify 推送 Komari 通知",
+        "en": "Send Komari notifications through Gotify",
+        "ja_JP": "Gotify で Komari 通知を送信します",
+        "id_ID": "Kirim notifikasi Komari melalui Gotify"
+      },
+      "version": "1.0.6",
+      "author": {
+        "zh_CN": "AXmishell",
+        "zh_TW": "AXmishell",
+        "en": "AXmishell",
+        "ja_JP": "AXmishell",
+        "id_ID": "AXmishell"
+      },
+      "komari": ">=1.6.0",
+      "url": "https://github.com/AXmishell/komari-plugin-gotify",
+      "download": "https://github.com/AXmishell/komari-plugin-gotify/releases/download/v1.0.6/gotify-notification-plugin.zip",
+      "sha256": "8d596c35101de118dd2295ed763dffa16cc31ab16738db163b67b4e651787b7f"
     },
     {
       "name": {
