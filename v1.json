@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-22T05:57:32.081Z",
+  "updated_at": "2026-09-26T14:05:25.876Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -12,6 +12,23 @@
       "url": "https://github.com/Grandova/Backend-Customize-path-For-Komari",
       "download": "https://github.com/Grandova/Backend-Customize-path-For-Komari/releases/download/v1.0.0/komari-plugin-admin-path-v1.0.0.zip",
       "sha256": "a1a825f1e588f2458f6a8e7983d8fb3680ad1e9ee0917e6e1128533c7c0526e1"
+    },
+    {
+      "name": {
+        "zh_CN": "开放 API",
+        "en": "Open API"
+      },
+      "short": "api",
+      "description": {
+        "zh_CN": "把控制台里的节点状态变成规范的 REST API：节点列表、实时状态、历史负载、Ping 记录一站查全，供机器人插件、脚本与自建面板调用。",
+        "en": "Expose console-visible server metrics as a clean REST API for bots, scripts and custom dashboards."
+      },
+      "version": "1.0.2",
+      "author": "MimoKit",
+      "komari": ">=1.4.0",
+      "url": "https://github.com/MimoKit/komari-api",
+      "download": "https://github.com/MimoKit/komari-api/releases/download/v1.0.2/komari-plugin-api.zip",
+      "sha256": "9481f8f75bd904bc597758bf270cf59f64d14822f11fd3a50035cc07f2917285"
     },
     {
       "name": {
