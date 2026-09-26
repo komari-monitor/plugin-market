@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-26T15:08:59.217Z",
+  "updated_at": "2026-09-26T16:46:24.212Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -23,12 +23,12 @@
         "zh_CN": "把控制台里的节点状态变成规范的 REST API：节点列表、实时状态、历史负载、Ping 记录一站查全，供机器人插件、脚本与自建面板调用。",
         "en": "Expose console-visible server metrics as a clean REST API for bots, scripts and custom dashboards."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": "MimoKit",
       "komari": ">=1.4.0",
       "url": "https://github.com/MimoKit/komari-api",
-      "download": "https://github.com/MimoKit/komari-api/releases/download/v1.0.2/komari-plugin-api.zip",
-      "sha256": "9481f8f75bd904bc597758bf270cf59f64d14822f11fd3a50035cc07f2917285"
+      "download": "https://github.com/MimoKit/komari-api/releases/download/v1.0.3/komari-plugin-api.zip",
+      "sha256": "99147d93bff3f5123a5cb86539a023a41332c770da529d23c57bd0683eaba125"
     },
     {
       "name": {
