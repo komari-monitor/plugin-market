@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-27T21:38:25.116Z",
+  "updated_at": "2026-10-08T03:30:25.699Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -253,6 +253,23 @@
       "url": "https://github.com/Akizon77/mjpeg-plugin",
       "download": "https://github.com/Akizon77/mjpeg-plugin/releases/download/v1.1.0/mjpeg-plugin.zip",
       "sha256": "94b6cb3952da82ed91dfec4781332c57bb19d3937b936a725a483aa17a4180d1"
+    },
+    {
+      "name": {
+        "zh_CN": "网络流量预测",
+        "en": "NetForecast"
+      },
+      "short": "net-forecast",
+      "description": {
+        "zh_CN": "全节点30天进出站流量增量堆叠柱状图与计费规则自适应累计折线图，直连核心数据库，预测重置日流量并提供超限告警",
+        "en": "All-nodes 30-day stacked bar and billing-adaptive cumulative charts, directly synced with core database, forecasting reset day usage and exhaustion alerts"
+      },
+      "version": "26.10.08",
+      "author": "livingfree2023",
+      "komari": "",
+      "url": "https://github.com/livingfree2023/Komari-Plugin-NetForecast",
+      "download": "https://github.com/livingfree2023/Komari-Plugin-NetForecast/releases/download/v26.10.08/net-forecast.zip",
+      "sha256": "6090624396763127cfe740e9672a8c4ed7c90eb6078d3ecefc9c06e064e5fb72"
     },
     {
       "name": {
