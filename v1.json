@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-14T09:28:20.560Z",
+  "updated_at": "2026-10-17T05:32:05.306Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -29,6 +29,17 @@
       "url": "https://github.com/MimoKit/komari-api",
       "download": "https://github.com/MimoKit/komari-api/releases/download/v1.0.3/komari-plugin-api.zip",
       "sha256": "99147d93bff3f5123a5cb86539a023a41332c770da529d23c57bd0683eaba125"
+    },
+    {
+      "name": "Availability History",
+      "short": "availability-history",
+      "description": "基于 WebSocket 实时连接事件的节点在线率历史账本与 30 天可用性计算",
+      "version": "0.1.3",
+      "author": "Chen017",
+      "komari": ">=1.5.0",
+      "url": "https://github.com/Chen017/komari-plugin-availability-history",
+      "download": "https://github.com/Chen017/komari-plugin-availability-history/releases/download/v0.1.3/availability-history.zip",
+      "sha256": "8020c785db16b5126a9e845aa7e353cafa6406e4997f60fd7742cc3230a43736"
     },
     {
       "name": {
