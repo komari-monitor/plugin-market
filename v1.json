@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-14T09:28:20.560Z",
+  "updated_at": "2026-10-17T05:32:24.229Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -185,6 +185,25 @@
       "url": "https://github.com/AXmishell/komari-plugin-gotify",
       "download": "https://github.com/AXmishell/komari-plugin-gotify/releases/download/v1.0.6/gotify-notification-plugin.zip",
       "sha256": "8d596c35101de118dd2295ed763dffa16cc31ab16738db163b67b4e651787b7f"
+    },
+    {
+      "name": {
+        "zh-CN": "IPQA 告警报告",
+        "zh_CN": "IPQA 告警报告",
+        "en": "IPQA Alert Report"
+      },
+      "short": "ipqa-alert-report",
+      "description": {
+        "zh-CN": "对于安装了开源项目 IP-Quality-Archive 的 VPS，通过 Komari 通知渠道发送 IP 质量的告警通知。",
+        "zh_CN": "对于安装了开源项目 IP-Quality-Archive 的 VPS，通过 Komari 通知渠道发送 IP 质量的告警通知。",
+        "en": "Sends IP quality alert notifications via Komari notification channels for VPS nodes with the open-source project IP-Quality-Archive installed."
+      },
+      "version": "0.2.2",
+      "author": "Chen017",
+      "komari": ">=1.4.3",
+      "url": "https://github.com/Chen017/komari-plugin-ipqa-alert-report",
+      "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.2/ipqa-alert-report.zip",
+      "sha256": "7157bf07f071e734a7421d8ff8dd6154db1014004e2df6a8c8a6457d94c441b0"
     },
     {
       "name": {
