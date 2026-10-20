@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-17T05:32:24.229Z",
+  "updated_at": "2026-10-20T01:58:50.764Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -29,6 +29,25 @@
       "url": "https://github.com/MimoKit/komari-api",
       "download": "https://github.com/MimoKit/komari-api/releases/download/v1.0.3/komari-plugin-api.zip",
       "sha256": "99147d93bff3f5123a5cb86539a023a41332c770da529d23c57bd0683eaba125"
+    },
+    {
+      "name": {
+        "zh-CN": "节点在线率历史",
+        "zh_CN": "节点在线率历史",
+        "en": "Availability History"
+      },
+      "short": "availability-history",
+      "description": {
+        "zh-CN": "基于 WebSocket 实时断连事件记录节点真实在线率历史与 30 天可用性。插件可独立采集数据与提供 API；强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，以在前端直观展示真正的 30 天在线率与可用性分析条带。",
+        "zh_CN": "基于 WebSocket 实时断连事件记录节点真实在线率历史与 30 天可用性。插件可独立采集数据与提供 API；强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，以在前端直观展示真正的 30 天在线率与可用性分析条带。",
+        "en": "Exact WebSocket connection event ledger and 30-day availability history for Komari. Operates standalone for data collection and APIs; strongly recommended to pair with Komari Emerald Insights theme to display true 30-day availability in the UI."
+      },
+      "version": "0.1.3",
+      "author": "Chen017",
+      "komari": ">=1.5.0",
+      "url": "https://github.com/Chen017/komari-plugin-availability-history",
+      "download": "https://github.com/Chen017/komari-plugin-availability-history/releases/download/v0.1.3/availability-history.zip",
+      "sha256": "64b081b397558b27ecb24ff8978a0746da4922879fc1249aa57cc54196e8e70b"
     },
     {
       "name": {
