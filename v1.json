@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-20T01:58:50.764Z",
+  "updated_at": "2026-10-21T09:18:18.608Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -71,6 +71,23 @@
       "url": "https://github.com/Akizon77/komari-notification-plugins",
       "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/bark-notification-plugin.zip",
       "sha256": "f87b9c25734afd6196e10076eef8da379a6808185b60a058b175e0a4e680b1f3"
+    },
+    {
+      "name": {
+        "zh_CN": "Bark 通知（增强版）",
+        "en": "Bark Plus Notification"
+      },
+      "short": "bark-plus",
+      "description": {
+        "zh_CN": "通过 Bark 发送 Komari 通知，支持自建服务器 Basic Auth、多设备、分组与重要警告",
+        "en": "Send Komari notifications through Bark with Basic Auth for self-hosted servers, multiple devices, groups and critical alerts"
+      },
+      "version": "1.0.0",
+      "author": "hoobnn",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/hoobnn/komari-plugins",
+      "download": "https://github.com/hoobnn/komari-plugins/releases/download/bark-plus-v1.0.0/bark-plus.zip",
+      "sha256": "0dfce7b0b330c0aa6ddc8125a47e47eba07edc8b6723c30c5e881b44878eb279"
     },
     {
       "name": {
