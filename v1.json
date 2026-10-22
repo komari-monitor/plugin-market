@@ -251,12 +251,12 @@
         "zh-CN": "为 Komari 提供通行密钥登录。安装后请前往账户页面添加并启用通行密钥。需要 Komari >=1.4.3。",
         "en": "Passkey sign-in for Komari. After installation, open the Account page to add and enable a Passkey. Requires Komari >=1.4.3."
       },
-      "version": "0.1.13",
+      "version": "0.1.14",
       "author": "Akizon77",
-      "komari": ">=1.4.3",
+      "komari": ">=1.6.0",
       "url": "https://github.com/Akizon77/komari-passkey",
-      "download": "https://github.com/Akizon77/komari-passkey/releases/download/v0.1.13/komari-passkey-0.1.13.zip",
-      "sha256": "eee8f160caa2cd6b0d32e90ef2c0c3204c4db274fe26b121fa90f86ffccd6fd9"
+      "download": "https://github.com/Akizon77/komari-passkey/releases/download/v0.1.14/komari-passkey-0.1.14.zip",
+      "sha256": "568026a59b7a7adb12617ecbe9ba979123a8ddf5730e71860745d9097cc68bd0"
     },
     {
       "name": {
