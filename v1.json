@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-21T09:18:18.608Z",
+  "updated_at": "2026-10-23T05:51:24.453Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -48,29 +48,6 @@
       "url": "https://github.com/Chen017/komari-plugin-availability-history",
       "download": "https://github.com/Chen017/komari-plugin-availability-history/releases/download/v0.1.3/availability-history.zip",
       "sha256": "64b081b397558b27ecb24ff8978a0746da4922879fc1249aa57cc54196e8e70b"
-    },
-    {
-      "name": {
-        "zh_CN": "Bark 通知",
-        "zh_TW": "Bark 通知",
-        "en": "Bark Notification",
-        "ja_JP": "Bark 通知",
-        "id_ID": "Notifikasi Bark"
-      },
-      "short": "bark-notification-plugin",
-      "description": {
-        "zh_CN": "通过 Bark 发送 Komari 通知",
-        "zh_TW": "透過 Bark 傳送 Komari 通知",
-        "en": "Send Komari notifications through Bark",
-        "ja_JP": "Bark で Komari 通知を送信します",
-        "id_ID": "Kirim notifikasi Komari melalui Bark"
-      },
-      "version": "1.0.0",
-      "author": "Akizon77",
-      "komari": ">=1.6.0",
-      "url": "https://github.com/Akizon77/komari-notification-plugins",
-      "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/bark-notification-plugin.zip",
-      "sha256": "f87b9c25734afd6196e10076eef8da379a6808185b60a058b175e0a4e680b1f3"
     },
     {
       "name": {
@@ -268,12 +245,12 @@
         "zh-CN": "为 Komari 提供通行密钥登录。安装后请前往账户页面添加并启用通行密钥。需要 Komari >=1.4.3。",
         "en": "Passkey sign-in for Komari. After installation, open the Account page to add and enable a Passkey. Requires Komari >=1.4.3."
       },
-      "version": "0.1.13",
+      "version": "0.1.14",
       "author": "Akizon77",
-      "komari": ">=1.4.3",
+      "komari": ">=1.6.0",
       "url": "https://github.com/Akizon77/komari-passkey",
-      "download": "https://github.com/Akizon77/komari-passkey/releases/download/v0.1.13/komari-passkey-0.1.13.zip",
-      "sha256": "eee8f160caa2cd6b0d32e90ef2c0c3204c4db274fe26b121fa90f86ffccd6fd9"
+      "download": "https://github.com/Akizon77/komari-passkey/releases/download/v0.1.14/komari-passkey-0.1.14.zip",
+      "sha256": "568026a59b7a7adb12617ecbe9ba979123a8ddf5730e71860745d9097cc68bd0"
     },
     {
       "name": {

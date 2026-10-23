@@ -50,6 +50,16 @@ Plugins must be sorted by `short` case-insensitively, and duplicate `short` valu
 node scripts/check-catalog-order.mjs
 ```
 
+## 通知渠道调整与 Bark 迁移 / Notification Channels and Bark Migration
+
+市场中的旧官方 `bark-notification-plugin` 已由 `bark-plus` 替换。此调整仅影响 Bark 的市场条目，不会自动卸载已安装插件或删除通知配置；Email、Server酱³、Server酱 Turbo、Telegram 及其他通知渠道保持不变。
+
+The old official `bark-notification-plugin` listing has been replaced by `bark-plus`. Only the Bark market listing changes: installed plugins and notification configurations are not automatically removed. Email, ServerChan3, ServerChan Turbo, Telegram and all other notification channels remain unchanged.
+
+Bark 用户可迁移至 [Bark Plus](https://github.com/hoobnn/komari-plugins/tree/main/bark-plus)。请先备份配置并停用旧 `bark-notification-plugin`，再安装和启用 `bark-plus`，避免两个插件同时注册 `bark` 渠道。`server_url`、`device_key`、`icon`、`level` 字段可复用，但不会由市场自动迁移插件。迁移后请检查新增默认值（包括 `Offline` 事件的重要警告、音量、分组和历史记录），并测试通知。自建服务应使用 HTTPS，特别是启用 Basic Auth 时；HTTP 会明文传输凭据与通知内容。
+
+Bark users can migrate to [Bark Plus](https://github.com/hoobnn/komari-plugins/tree/main/bark-plus). Back up the configuration and disable the old `bark-notification-plugin` before installing and enabling `bark-plus`: both register the `bark` channel and cannot run together. The `server_url`, `device_key`, `icon` and `level` fields can be reused, but the market does not automatically migrate installed plugins. Review the new defaults (including critical alerts for `Offline`, volume, group and archive settings), then test delivery. Use HTTPS for self-hosted servers, especially with Basic Auth; HTTP transmits credentials and notification content in plaintext.
+
 ## 提交插件 / Submit a Plugin
 
 请在 [Issue 页面](../../issues/new/choose) 选择对应模板。不要手动拼接字段名称，Action 会按 Issue Form 的固定字段读取内容。
