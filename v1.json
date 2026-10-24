@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-23T05:56:14.032Z",
+  "updated_at": "2026-10-24T16:15:49.414Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -416,7 +416,7 @@
         "zh-CN": "基于 MediaUnlockTest 探测各 VPS 节点的流媒体与 AI 平台解锁状态，并在 Komari 首页注入可拖动浮层展示各服务 Logo、红绿解锁边框与区域缩写。",
         "en": "Probe VPS media and AI unlock status via MediaUnlockTest and inject a draggable floating overlay on the Komari homepage showing service logos, green/red borders, and region codes."
       },
-      "version": "26.1021.5",
+      "version": "26.1024.1",
       "author": {
         "zh_CN": "livingfree2023 (livingfree2023@outlook.com)",
         "zh-CN": "livingfree2023 (livingfree2023@outlook.com)",
@@ -424,8 +424,8 @@
       },
       "komari": ">=1.0.5",
       "url": "https://github.com/livingfree2023/Komari-Plugin-UnlockTest",
-      "download": "https://github.com/livingfree2023/Komari-Plugin-UnlockTest/releases/download/v26.1021.5/unlock-test.zip",
-      "sha256": "62577d255367cbdda27fe01db22784396c8663635f8f0752d67215804df12dbe"
+      "download": "https://github.com/livingfree2023/Komari-Plugin-UnlockTest/releases/download/v26.1024.1/unlock-test.zip",
+      "sha256": "56b225062068118f33ac7ba711e8298b2ef7ef2227706b68678baa5bbcc54c24"
     }
   ]
 }
