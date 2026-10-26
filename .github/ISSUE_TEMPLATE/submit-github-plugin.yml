@@ -21,6 +21,22 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: category
+    attributes:
+      label: 插件分类 / Plugin category
+      description: 按主要用途选择一个分类；没有合适分类时请选择“未分类”。通知渠道负责发送消息，监控与告警负责检测及触发告警。 / Choose one primary category, or Uncategorized if none fits. Notification channels deliver messages; monitoring plugins detect conditions and trigger alerts.
+      options:
+        - 通知渠道 / Notifications
+        - 监控与告警 / Monitoring and alerts
+        - 网络与域名 / Network and domains
+        - 登录与安全 / Login and security
+        - 数据与集成 / Data and integrations
+        - 系统与工具 / System and utilities
+        - 未分类 / Uncategorized
+    validations:
+      required: true
+
   - type: checkboxes
     id: confirmations
     attributes:

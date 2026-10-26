@@ -33,6 +33,16 @@ MAX_REDIRECTS = 10
 GITHUB_REPOSITORY_FIELD = "GitHub 仓库地址 / GitHub repository URL"
 PROJECT_URL_FIELD = "项目地址 / Project URL"
 DOWNLOAD_FIELD = "插件包下载地址 / Plugin package URL"
+CATEGORY_FIELD = "插件分类 / Plugin category"
+CATEGORY_OPTIONS = {
+    "通知渠道 / Notifications": "notification",
+    "监控与告警 / Monitoring and alerts": "monitoring",
+    "网络与域名 / Network and domains": "network",
+    "登录与安全 / Login and security": "security",
+    "数据与集成 / Data and integrations": "integration",
+    "系统与工具 / System and utilities": "utility",
+    "未分类 / Uncategorized": "uncategorized",
+}
 NAME_FIELD = "插件名称 / Plugin name"
 SHORT_FIELD = "插件唯一短名称 / Unique plugin short name"
 VERSION_FIELD = "插件版本 / Plugin version"
@@ -714,11 +724,16 @@ def process_event(
             "无法识别提交模板，请使用仓库提供的插件 Issue Form / "
             "Could not identify the submission form; use a plugin Issue Form"
         )
+    category = fields.get(CATEGORY_FIELD, "").strip()
+    if category and category not in CATEGORY_OPTIONS:
+        raise SubmissionError("无效的插件分类 / Invalid plugin category")
     result = (
         process_github_submission(fields, client)
         if has_github
         else process_external_submission(fields, client)
     )
+    if category:
+        result.plugin["category"] = CATEGORY_OPTIONS[category]
     add_plugin_to_catalog(catalog, result.plugin)
     return result, issue_number
 

@@ -458,5 +458,56 @@ class CatalogAndOutputTests(unittest.TestCase):
             self.assertFalse(pr_body_path.exists())
 
 
+class CategorySubmissionTests(unittest.TestCase):
+    def test_uncategorized_has_stable_identifier(self):
+        self.assertEqual(
+            submission.CATEGORY_OPTIONS["未分类 / Uncategorized"], "uncategorized"
+        )
+
+    def test_templates_match_supported_categories(self):
+        root = Path(__file__).resolve().parents[1]
+        for filename in ("submit-github-plugin.yml", "submit-external-plugin.yml"):
+            text = (root / ".github" / "ISSUE_TEMPLATE" / filename).read_text(encoding="utf-8")
+            self.assertIn(f"label: {submission.CATEGORY_FIELD}", text)
+            self.assertIn("id: category", text)
+            for option in submission.CATEGORY_OPTIONS:
+                self.assertIn(f"        - {option}\n", text)
+
+    def test_categories_are_written_for_both_submission_types(self):
+        for body, processor in (
+            (github_issue_body(), "process_github_submission"),
+            (external_issue_body(), "process_external_submission"),
+        ):
+            for label, category in submission.CATEGORY_OPTIONS.items():
+                with self.subTest(processor=processor, category=category):
+                    catalog = {"schema": 1, "plugins": []}
+                    result = submission.SubmissionResult("test", {"short": "test"}, "test.zip")
+                    event = {"issue": {"number": 1, "body": body + issue_field(submission.CATEGORY_FIELD, label)}}
+                    with mock.patch.object(submission, processor, return_value=result):
+                        submission.process_event(event, catalog, FakeClient())
+                    self.assertEqual(catalog["plugins"][0]["category"], category)
+
+    def test_legacy_and_empty_category_remain_optional(self):
+        for body in (github_issue_body(), external_issue_body()):
+            for suffix in ("", issue_field(submission.CATEGORY_FIELD, "_No response_")):
+                catalog = {"schema": 1, "plugins": []}
+                result = submission.SubmissionResult("test", {"short": "test"}, "test.zip")
+                event = {"issue": {"number": 1, "body": body + suffix}}
+                with mock.patch.object(submission, "process_github_submission", return_value=result), mock.patch.object(
+                    submission, "process_external_submission", return_value=result
+                ):
+                    submission.process_event(event, catalog, FakeClient())
+                self.assertNotIn("category", catalog["plugins"][0])
+
+    def test_unknown_category_rejected_before_package_processing(self):
+        catalog = {"schema": 1, "plugins": []}
+        body = github_issue_body() + issue_field(submission.CATEGORY_FIELD, "unknown")
+        with mock.patch.object(submission, "process_github_submission") as process:
+            with self.assertRaisesRegex(submission.SubmissionError, "Invalid plugin category"):
+                submission.process_event({"issue": {"number": 1, "body": body}}, catalog, FakeClient())
+            process.assert_not_called()
+        self.assertEqual(catalog["plugins"], [])
+
+
 if __name__ == "__main__":
     unittest.main()

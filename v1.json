@@ -5,6 +5,7 @@
     {
       "name": "自定义后台路径",
       "short": "admin-path",
+      "category": "security",
       "description": "自定义 Komari 后台页面路径，并关闭原 /admin 入口。",
       "version": "1.0.0",
       "author": "Kristen",
@@ -19,6 +20,7 @@
         "en": "Open API"
       },
       "short": "api",
+      "category": "integration",
       "description": {
         "zh_CN": "把控制台里的节点状态变成规范的 REST API：节点列表、实时状态、历史负载、Ping 记录一站查全，供机器人插件、脚本与自建面板调用。",
         "en": "Expose console-visible server metrics as a clean REST API for bots, scripts and custom dashboards."
@@ -37,6 +39,7 @@
         "en": "Availability History"
       },
       "short": "availability-history",
+      "category": "monitoring",
       "description": {
         "zh-CN": "基于 WebSocket 实时断连事件记录节点真实在线率历史与 30 天可用性。插件可独立采集数据与提供 API；强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，以在前端直观展示真正的 30 天在线率与可用性分析条带。",
         "zh_CN": "基于 WebSocket 实时断连事件记录节点真实在线率历史与 30 天可用性。插件可独立采集数据与提供 API；强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，以在前端直观展示真正的 30 天在线率与可用性分析条带。",
@@ -55,6 +58,7 @@
         "en": "Bark Plus Notification"
       },
       "short": "bark-plus",
+      "category": "notification",
       "description": {
         "zh_CN": "通过 Bark 发送 Komari 通知，支持自建服务器 Basic Auth、多设备、分组与重要警告",
         "en": "Send Komari notifications through Bark with Basic Auth for self-hosted servers, multiple devices, groups and critical alerts"
@@ -72,6 +76,7 @@
         "en": "Komari DDNS"
       },
       "short": "cf-ddns",
+      "category": "network",
       "description": {
         "zh_CN": "根据 Komari 节点上报的公网 IP，自动更新 Cloudflare DNS 解析记录，实现动态域名解析。",
         "en": "Automatically update Cloudflare DNS records from the public IP reported by a Komari node, providing dynamic DNS."
@@ -86,6 +91,7 @@
     {
       "name": "Cloudflare DDNS",
       "short": "cloudflare-ddns",
+      "category": "network",
       "description": "使用 Cloudflare 邮箱和 Global API Key，将 Komari 服务器 IP 定时同步到多个域名。",
       "version": "1.0.1",
       "author": "Kristen",
@@ -97,6 +103,7 @@
     {
       "name": "Cloudflare Tunnel",
       "short": "cloudflare-tunnel",
+      "category": "network",
       "description": {
         "zh-CN": "在 Komari 中下载、更新并管理 Cloudflare Tunnel。",
         "en": "Download, update, and manage Cloudflare Tunnel from Komari."
@@ -111,6 +118,7 @@
     {
       "name": "Domain Watch",
       "short": "domain-watch",
+      "category": "network",
       "description": "域名监控插件：基于 RDAP 协议的 Whois 查询与域名续费到期提醒。",
       "version": "1.0.2",
       "author": "Geekertao",
@@ -128,6 +136,7 @@
         "id_ID": "Notifikasi Email"
       },
       "short": "email-notification-plugin",
+      "category": "notification",
       "description": {
         "zh_CN": "通过 SMTP 发送 Komari 通知",
         "zh_TW": "透過 SMTP 傳送 Komari 通知",
@@ -145,6 +154,7 @@
     {
       "name": "1.5.x 后台 404 修复",
       "short": "fix-1-5-0-theme-404",
+      "category": "utility",
       "description": "修复1.5.0使用第三方主题进入后台404",
       "version": "1.0.0",
       "author": "Akizon77",
@@ -159,6 +169,7 @@
         "en": "GitHub Proxy"
       },
       "short": "github-proxy",
+      "category": "utility",
       "description": {
         "zh_CN": "为插件市场和主题市场的 GitHub 下载链接添加代理前缀，加速下载",
         "en": "Add proxy prefix to GitHub download URLs in plugin/theme market"
@@ -179,6 +190,7 @@
         "id_ID": "Notifikasi Gotify"
       },
       "short": "gotify-notification-plugin",
+      "category": "notification",
       "description": {
         "zh_CN": "通过 Gotify 推送 Komari 通知",
         "zh_TW": "透過 Gotify 推送 Komari 通知",
@@ -206,6 +218,7 @@
         "en": "IPQA Alert Report"
       },
       "short": "ipqa-alert-report",
+      "category": "monitoring",
       "description": {
         "zh-CN": "对于安装了开源项目 IP-Quality-Archive 的 VPS，通过 Komari 通知渠道发送 IP 质量的告警通知。",
         "zh_CN": "对于安装了开源项目 IP-Quality-Archive 的 VPS，通过 Komari 通知渠道发送 IP 质量的告警通知。",
@@ -224,6 +237,7 @@
         "en": "One-time Code Login"
       },
       "short": "komari-otp-login",
+      "category": "security",
       "description": {
         "zh_CN": "通过 Komari 已配置的通知渠道发送一次性验证码登录。验证码有效期为 3 分钟。",
         "en": "Sign in with a one-time code sent through a configured Komari notification channel. Codes expire after three minutes."
@@ -241,6 +255,7 @@
         "en": "Passkey"
       },
       "short": "komari-passkey",
+      "category": "security",
       "description": {
         "zh-CN": "为 Komari 提供通行密钥登录。安装后请前往账户页面添加并启用通行密钥。需要 Komari >=1.4.3。",
         "en": "Passkey sign-in for Komari. After installation, open the Account page to add and enable a Passkey. Requires Komari >=1.4.3."
@@ -258,6 +273,7 @@
         "en": "Load Notifications"
       },
       "short": "load-notification",
+      "category": "monitoring",
       "description": {
         "zh-CN": "基于 queryMetrics 的可编排指标告警插件",
         "en": "Composable metric alerts powered by queryMetrics"
@@ -275,6 +291,7 @@
         "en": "MJPEG Live Status"
       },
       "short": "mjpeg",
+      "category": "integration",
       "description": {
         "zh-CN": "将 Komari 节点状态渲染为实时 MJPEG 表格流。",
         "en": "Renders Komari node status as a live MJPEG table stream."
@@ -292,6 +309,7 @@
         "en": "NetForecast"
       },
       "short": "net-forecast",
+      "category": "monitoring",
       "description": {
         "zh_CN": "全节点30天进出站流量增量堆叠柱状图与计费规则自适应累计折线图，直连核心数据库，预测重置日流量并提供超限告警",
         "en": "All-nodes 30-day stacked bar and billing-adaptive cumulative charts, directly synced with core database, forecasting reset day usage and exhaustion alerts"
@@ -308,6 +326,7 @@
         "en": "Manual Server Location Override"
       },
       "short": "override-location",
+      "category": "utility",
       "description": "可选择按节点名称或 UUID 覆盖地区代码，处理 HTTP API 与实时 RPC/WebSocket 数据。",
       "version": "1.1.5",
       "author": "祁同伟",
@@ -325,6 +344,7 @@
         "id_ID": "Notifikasi ServerChan3"
       },
       "short": "serverchan3-notification-plugin",
+      "category": "notification",
       "description": {
         "zh_CN": "通过 Server酱³ 发送 Komari 通知",
         "zh_TW": "透過 Server醬³ 傳送 Komari 通知",
@@ -348,6 +368,7 @@
         "id_ID": "Notifikasi ServerChan Turbo"
       },
       "short": "serverchanturbo-notification-plugin",
+      "category": "notification",
       "description": {
         "zh_CN": "通过 Server酱 Turbo 发送 Komari 通知",
         "zh_TW": "透過 Server醬 Turbo 傳送 Komari 通知",
@@ -371,6 +392,7 @@
         "id_ID": "Notifikasi Telegram"
       },
       "short": "telegram-notification-plugin",
+      "category": "notification",
       "description": {
         "zh_CN": "通过 Telegram Bot 发送 Komari 通知",
         "zh_TW": "透過 Telegram Bot 傳送 Komari 通知",
@@ -392,6 +414,7 @@
         "en": "Scheduled Traffic Reports"
       },
       "short": "traffic-report",
+      "category": "monitoring",
       "description": {
         "zh-CN": "按自定义计划发送节点流量日报、周报和月报。",
         "zh-TW": "依自訂排程發送節點流量日報、週報和月報。",
