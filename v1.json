@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-25T21:15:11.145Z",
+  "updated_at": "2026-10-28T15:32:32.813Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -382,6 +382,18 @@
       "url": "https://github.com/Akizon77/komari-notification-plugins",
       "download": "https://github.com/Akizon77/komari-notification-plugins/releases/download/v1.0.0/serverchanturbo-notification-plugin.zip",
       "sha256": "edd852691de0dcf10ae09fbda7ae061690bf89e1159bea757f1e7d1bec3d048a"
+    },
+    {
+      "name": "Tailscale 管理",
+      "short": "tailscale-status",
+      "description": "Headscale / Tailscale 可视化组网管理台：支持节点监控与管控、用户与授权密钥管理、子网路由与出口节点、MagicDNS 与自定义解析、可视化 ACL 访问控制及 DERP 中继网络诊断。",
+      "version": "1.0.0",
+      "author": "smartcat999",
+      "komari": ">=1.6.1",
+      "url": "https://github.com/smartcat999/komari-tailscale",
+      "download": "https://github.com/smartcat999/komari-tailscale/releases/download/v1.0.0/tailscale-status.zip",
+      "sha256": "68e322ab7b37afec7fdba566a23a36fd5b7df96b76b67c8fce4a11351048e9f5",
+      "category": "network"
     },
     {
       "name": {
