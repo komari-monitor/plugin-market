@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-28T15:32:32.813Z",
+  "updated_at": "2026-10-30T05:26:39.986Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -45,12 +45,12 @@
         "zh_CN": "基于 WebSocket 实时断连事件记录节点真实在线率历史与 30 天可用性。插件可独立采集数据与提供 API；强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，以在前端直观展示真正的 30 天在线率与可用性分析条带。",
         "en": "Exact WebSocket connection event ledger and 30-day availability history for Komari. Operates standalone for data collection and APIs; strongly recommended to pair with Komari Emerald Insights theme to display true 30-day availability in the UI."
       },
-      "version": "0.1.4",
+      "version": "0.1.5",
       "author": "Chen017",
       "komari": ">=1.5.0",
       "url": "https://github.com/Chen017/komari-plugin-availability-history",
-      "download": "https://github.com/Chen017/komari-plugin-availability-history/releases/download/v0.1.4/availability-history.zip",
-      "sha256": "8efb6a46fd1182c45a5985dd5c8c577e6cc5a53a4f9b3ab14253e9ad43d5ba84"
+      "download": "https://github.com/Chen017/komari-plugin-availability-history/releases/download/v0.1.5/availability-history.zip",
+      "sha256": "4f06fcbac17bef40df89e32e254c6e3d42997a395bb509e13992889387f335cb"
     },
     {
       "name": {
@@ -224,12 +224,12 @@
         "zh_CN": "对于安装了开源项目 IP-Quality-Archive 的 VPS，通过 Komari 通知渠道发送 IP 质量的告警通知。",
         "en": "Sends IP quality alert notifications via Komari notification channels for VPS nodes with the open-source project IP-Quality-Archive installed."
       },
-      "version": "0.2.4",
+      "version": "0.2.5",
       "author": "Chen017",
       "komari": ">=1.4.3",
       "url": "https://github.com/Chen017/komari-plugin-ipqa-alert-report",
-      "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.4/ipqa-alert-report.zip",
-      "sha256": "79c66637f6efdf181ed4894c7dccd13928031a05c71618ad44a4774edf24a73c"
+      "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.5/ipqa-alert-report.zip",
+      "sha256": "ef14d3c4ea827350652dcf6b1d75a86e651043b1a4b3b048df186e9778d52a81"
     },
     {
       "name": {
