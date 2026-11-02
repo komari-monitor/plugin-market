@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-30T05:26:39.986Z",
+  "updated_at": "2026-11-02T15:36:38.566Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -230,6 +230,24 @@
       "url": "https://github.com/Chen017/komari-plugin-ipqa-alert-report",
       "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.5/ipqa-alert-report.zip",
       "sha256": "ef14d3c4ea827350652dcf6b1d75a86e651043b1a4b3b048df186e9778d52a81"
+    },
+    {
+      "name": {
+        "zh_CN": "被墙检测",
+        "en": "Block Detection"
+      },
+      "short": "komari-gfw",
+      "description": {
+        "zh_CN": "基于多目标 TCP 探测检测服务器疑似被墙状态，支持双向严格模式、恢复通知、IP 脱敏和管理总览。",
+        "en": "Detect suspected server blocking with multi-target TCP probes, bidirectional strict mode, recovery notifications, IP masking, and an admin overview."
+      },
+      "version": "0.1.2",
+      "author": "Connor",
+      "komari": "1.6.1",
+      "url": "https://github.com/Connor3773/Komari_GFW",
+      "download": "https://github.com/Connor3773/Komari_GFW/releases/download/v0.1.2/komari-gfw-0.1.2.zip",
+      "sha256": "2f5dee6e82b4da84706b83dee555d15dc81680b2de94c245b4befd1a77e7195b",
+      "category": "monitoring"
     },
     {
       "name": {
