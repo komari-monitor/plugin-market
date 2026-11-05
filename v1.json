@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-02T15:36:38.566Z",
+  "updated_at": "2026-11-05T20:17:21.187Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -241,12 +241,12 @@
         "zh_CN": "基于多目标 TCP 探测检测服务器疑似被墙状态，支持双向严格模式、恢复通知、IP 脱敏和管理总览。",
         "en": "Detect suspected server blocking with multi-target TCP probes, bidirectional strict mode, recovery notifications, IP masking, and an admin overview."
       },
-      "version": "0.1.2",
+      "version": "0.1.6",
       "author": "Connor",
-      "komari": "1.6.1",
+      "komari": ">=1.6.1",
       "url": "https://github.com/Connor3773/Komari_GFW",
-      "download": "https://github.com/Connor3773/Komari_GFW/releases/download/v0.1.2/komari-gfw-0.1.2.zip",
-      "sha256": "2f5dee6e82b4da84706b83dee555d15dc81680b2de94c245b4befd1a77e7195b",
+      "download": "https://github.com/Connor3773/Komari_GFW/releases/download/v0.1.6/komari-gfw-0.1.6.zip",
+      "sha256": "5656880c894d764249cc978aa6f7c7f5348c104d6f8c143dcc1301ae53056af9",
       "category": "monitoring"
     },
     {
