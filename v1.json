@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-05T20:17:21.187Z",
+  "updated_at": "2026-11-11T09:24:20.318Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -337,6 +337,24 @@
       "url": "https://github.com/livingfree2023/Komari-Plugin-NetForecast",
       "download": "https://github.com/livingfree2023/Komari-Plugin-NetForecast/releases/download/v26.1021.6/net-forecast.zip",
       "sha256": "b39c5262264df261f002c19e097cf3f1ff8450d1e4c91a275dd71ad705e7b0a5"
+    },
+    {
+      "name": {
+        "zh_CN": "Komari KNS 节点与订阅",
+        "en": "Komari KNS Nodes and Subscriptions"
+      },
+      "short": "onebox-bridge",
+      "description": {
+        "zh_CN": "以机器为中心管理 OneBox 代理节点，通过三步向导安装协议，并发布受令牌保护的 Mihomo、sing-box 与多客户端订阅。",
+        "en": "Manage OneBox proxy nodes by machine, install protocols with a three-step wizard, and publish token-protected Mihomo, sing-box, and converted subscriptions."
+      },
+      "version": "1.0.12",
+      "author": "ajax",
+      "komari": ">=1.4.3",
+      "url": "https://github.com/liuarui/komari-plugin-kns",
+      "download": "https://github.com/liuarui/komari-plugin-kns/releases/download/v1.0.12/onebox-bridge.zip",
+      "sha256": "c566e3919a1689a0034583650a81a63cc3b61bd9bc2f539b4cac72d328bd7282",
+      "category": "network"
     },
     {
       "name": {
