@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-05T20:17:21.187Z",
+  "updated_at": "2026-11-12T08:51:55.129Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -114,6 +114,26 @@
       "url": "https://github.com/Akizon77/cloudflare-tunnel",
       "download": "https://github.com/Akizon77/cloudflare-tunnel/releases/download/v1.1.0/cloudflare-tunnel-1.1.0.zip",
       "sha256": "2068ad4ca1cd3665d08599363635cf444ac912a389c65d4faa8262dbe37bf30d"
+    },
+    {
+      "name": {
+        "zh-CN": "CPU Steal 监控",
+        "en": "CPU Steal Monitor",
+        "zh_CN": "CPU Steal 监控"
+      },
+      "short": "cpu-steal-monitor",
+      "description": {
+        "zh-CN": "每两分钟通过现有 Linux Agent 只读采集 CPU Steal（宿主机 CPU 抢占率），独立保存 90 天历史并提供历史、汇总及诊断 REST API，无需安装额外 VPS 采集程序，也不依赖前端主题。强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，可在节点详情原有 CPU／系统负载图中直观查看 Steal（两分钟均值）曲线与历史变化。",
+        "zh_CN": "每两分钟通过现有 Linux Agent 只读采集 CPU Steal（宿主机 CPU 抢占率），独立保存 90 天历史并提供历史、汇总及诊断 REST API，无需安装额外 VPS 采集程序，也不依赖前端主题。强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，可在节点详情原有 CPU／系统负载图中直观查看 Steal（两分钟均值）曲线与历史变化。",
+        "en": "Samples Linux CPU Steal (hypervisor contention) every two minutes using the existing Agent, persists up to 90 days of history, and provides standalone history, summary and diagnostics REST APIs without a separate VPS collector or theme dependency. Strongly recommended with the Komari Emerald Insights theme, which overlays the two-minute Steal history on the existing CPU and system-load chart."
+      },
+      "version": "0.2.3",
+      "author": "Chen017",
+      "komari": ">=1.4.3",
+      "url": "https://github.com/Chen017/komari-plugin-cpu-steal-monitor",
+      "download": "https://github.com/Chen017/komari-plugin-cpu-steal-monitor/releases/download/v0.2.3/cpu-steal-monitor.zip",
+      "sha256": "efc52ba54e6c94564f05d529511dc19bd8d8c7af0ff11783a15285db85773e1e",
+      "category": "monitoring"
     },
     {
       "name": "Domain Watch",
