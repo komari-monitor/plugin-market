@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-05T20:17:21.187Z",
+  "updated_at": "2026-11-12T05:55:29.259Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -230,6 +230,21 @@
       "url": "https://github.com/Chen017/komari-plugin-ipqa-alert-report",
       "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.5/ipqa-alert-report.zip",
       "sha256": "ef14d3c4ea827350652dcf6b1d75a86e651043b1a4b3b048df186e9778d52a81"
+    },
+    {
+      "name": {
+        "zh_CN": "Komari 日报与周报",
+        "en": "Komari Daily & Weekly Reports"
+      },
+      "short": "komari-daily-weekly-reports",
+      "description": "Komari 监控日报与周报：汇总节点流量、Ping、在线率及可选事件，支持定时发送、实时日报、预览、历史补发和备份，复用 Telegram 通知渠道。",
+      "version": "0.1.0",
+      "author": "zhfk",
+      "komari": ">=1.6.1",
+      "url": "https://github.com/zhfk/komari-usage-report-plugins",
+      "download": "https://github.com/zhfk/komari-usage-report-plugins/releases/download/v0.1.0/komari-daily-weekly-reports-0.1.0.zip",
+      "sha256": "c94d48d47fbf3e4ef3f3e1b6376ac2901e69f3961b6baef0bf524db4b425c826",
+      "category": "monitoring"
     },
     {
       "name": {
