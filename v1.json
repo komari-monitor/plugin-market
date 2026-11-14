@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-05T20:17:21.187Z",
+  "updated_at": "2026-11-14T07:03:14.641Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -45,12 +45,12 @@
         "zh_CN": "基于 WebSocket 实时断连事件记录节点真实在线率历史与 30 天可用性。插件可独立采集数据与提供 API；强烈推荐搭配 Komari Emerald Insights（翡翠洞察）主题，以在前端直观展示真正的 30 天在线率与可用性分析条带。",
         "en": "Exact WebSocket connection event ledger and 30-day availability history for Komari. Operates standalone for data collection and APIs; strongly recommended to pair with Komari Emerald Insights theme to display true 30-day availability in the UI."
       },
-      "version": "0.1.5",
+      "version": "0.1.6",
       "author": "Chen017",
       "komari": ">=1.5.0",
       "url": "https://github.com/Chen017/komari-plugin-availability-history",
-      "download": "https://github.com/Chen017/komari-plugin-availability-history/releases/download/v0.1.5/availability-history.zip",
-      "sha256": "4f06fcbac17bef40df89e32e254c6e3d42997a395bb509e13992889387f335cb"
+      "download": "https://github.com/Chen017/komari-plugin-availability-history/releases/download/v0.1.6/availability-history.zip",
+      "sha256": "7c333a361305ea61275127e0e7498eab533eae6e3ffde9b32dc77408d19d4ebf"
     },
     {
       "name": {
@@ -63,12 +63,12 @@
         "zh_CN": "通过 Bark 发送 Komari 通知，支持自建服务器 Basic Auth、多设备、分组与重要警告",
         "en": "Send Komari notifications through Bark with Basic Auth for self-hosted servers, multiple devices, groups and critical alerts"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "hoobnn",
       "komari": ">=1.6.0",
       "url": "https://github.com/hoobnn/komari-plugins",
-      "download": "https://github.com/hoobnn/komari-plugins/releases/download/bark-plus-v1.0.0/bark-plus.zip",
-      "sha256": "0dfce7b0b330c0aa6ddc8125a47e47eba07edc8b6723c30c5e881b44878eb279"
+      "download": "https://github.com/hoobnn/komari-plugins/releases/download/bark-plus-v1.1.0/bark-plus.zip",
+      "sha256": "591e263f801afe553847aab2a28a46058055f2f76a6f63ddcbf7b1fd72fa7d38"
     },
     {
       "name": {
@@ -224,12 +224,12 @@
         "zh_CN": "对于安装了开源项目 IP-Quality-Archive 的 VPS，通过 Komari 通知渠道发送 IP 质量的告警通知。",
         "en": "Sends IP quality alert notifications via Komari notification channels for VPS nodes with the open-source project IP-Quality-Archive installed."
       },
-      "version": "0.2.5",
+      "version": "0.2.6",
       "author": "Chen017",
       "komari": ">=1.4.3",
       "url": "https://github.com/Chen017/komari-plugin-ipqa-alert-report",
-      "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.5/ipqa-alert-report.zip",
-      "sha256": "ef14d3c4ea827350652dcf6b1d75a86e651043b1a4b3b048df186e9778d52a81"
+      "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.6/ipqa-alert-report.zip",
+      "sha256": "ec0e652ec59d6f7a9590b6bbf3dbb256ffd62b6b4566c5a59dfbfb332be3015b"
     },
     {
       "name": {
@@ -241,12 +241,12 @@
         "zh_CN": "基于多目标 TCP 探测检测服务器疑似被墙状态，支持双向严格模式、恢复通知、IP 脱敏和管理总览。",
         "en": "Detect suspected server blocking with multi-target TCP probes, bidirectional strict mode, recovery notifications, IP masking, and an admin overview."
       },
-      "version": "0.1.6",
+      "version": "0.1.8",
       "author": "Connor",
       "komari": ">=1.6.1",
       "url": "https://github.com/Connor3773/Komari_GFW",
-      "download": "https://github.com/Connor3773/Komari_GFW/releases/download/v0.1.6/komari-gfw-0.1.6.zip",
-      "sha256": "5656880c894d764249cc978aa6f7c7f5348c104d6f8c143dcc1301ae53056af9",
+      "download": "https://github.com/Connor3773/Komari_GFW/releases/download/v0.1.8/komari-gfw-0.1.8.zip",
+      "sha256": "a3c1631001cb6d83186cce24ab6796e243d11016b251e6ebb3d36f6a5cf2642d",
       "category": "monitoring"
     },
     {
@@ -332,11 +332,11 @@
         "zh_CN": "全节点30天进出站流量增量堆叠柱状图与计费规则自适应累计折线图，直连核心数据库，预测重置日流量并提供超限告警",
         "en": "All-nodes 30-day stacked bar and billing-adaptive cumulative charts, directly synced with core database, forecasting reset day usage and exhaustion alerts"
       },
-      "version": "26.1021.6",
+      "version": "26.1109.1",
       "author": "livingfree2023",
       "url": "https://github.com/livingfree2023/Komari-Plugin-NetForecast",
-      "download": "https://github.com/livingfree2023/Komari-Plugin-NetForecast/releases/download/v26.1021.6/net-forecast.zip",
-      "sha256": "b39c5262264df261f002c19e097cf3f1ff8450d1e4c91a275dd71ad705e7b0a5"
+      "download": "https://github.com/livingfree2023/Komari-Plugin-NetForecast/releases/download/v26.1109.1/net-forecast.zip",
+      "sha256": "fbae9b521ec68a9100168dd48f3c183af913f3d985124c62df5f34f90f7ea4f6"
     },
     {
       "name": {
