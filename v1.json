@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-05T20:17:21.187Z",
+  "updated_at": "2026-11-14T19:30:09.030Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -284,6 +284,24 @@
       "url": "https://github.com/Akizon77/komari-passkey",
       "download": "https://github.com/Akizon77/komari-passkey/releases/download/v0.1.14/komari-passkey-0.1.14.zip",
       "sha256": "568026a59b7a7adb12617ecbe9ba979123a8ddf5730e71860745d9097cc68bd0"
+    },
+    {
+      "name": {
+        "zh-CN": "共享流量池",
+        "en": "Shared Traffic Pool"
+      },
+      "short": "komari-traffic-pool",
+      "description": {
+        "zh-CN": "按组聚合节点出站/入站流量，对比预置额度，阶梯告警（如 Oracle 多机共享 10TB 月额度）",
+        "en": "Aggregate node traffic per group against a preset quota with stepped alerts (e.g. Oracle shared 10TB/mo)"
+      },
+      "version": "1.0.0",
+      "author": "overspread",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/overspread/komari-traffic-pool",
+      "download": "https://github.com/overspread/komari-traffic-pool/releases/download/v1.0.0/kkr-traffic-pool.zip",
+      "sha256": "0e9b9065f9f27b199c4e7edb87bb10f982b38d4063220cc3276a5fcaee546762",
+      "category": "monitoring"
     },
     {
       "name": {
