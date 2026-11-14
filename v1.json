@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-05T20:17:21.187Z",
+  "updated_at": "2026-11-14T12:11:47.429Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -230,6 +230,24 @@
       "url": "https://github.com/Chen017/komari-plugin-ipqa-alert-report",
       "download": "https://github.com/Chen017/komari-plugin-ipqa-alert-report/releases/download/v0.2.5/ipqa-alert-report.zip",
       "sha256": "ef14d3c4ea827350652dcf6b1d75a86e651043b1a4b3b048df186e9778d52a81"
+    },
+    {
+      "name": {
+        "zh-CN": "共享流量池",
+        "en": "Shared Traffic Pool"
+      },
+      "short": "kkr-traffic-pool",
+      "description": {
+        "zh-CN": "按组聚合节点出站/入站流量，对比预置额度，阶梯告警（如 Oracle 多机共享 10TB 月额度）",
+        "en": "Aggregate node traffic per group against a preset quota with stepped alerts (e.g. Oracle shared 10TB/mo)"
+      },
+      "version": "1.0.0",
+      "author": "overspread",
+      "komari": ">=1.6.0",
+      "url": "https://github.com/overspread/komari-traffic-pool",
+      "download": "https://github.com/overspread/komari-traffic-pool/releases/download/v1.0.0/kkr-traffic-pool.zip",
+      "sha256": "57fd7b9d8f1158861b86cbb58a889d3696be0d80adb5d24c0fc86702cdd89246",
+      "category": "monitoring"
     },
     {
       "name": {
