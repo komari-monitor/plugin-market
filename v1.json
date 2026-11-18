@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-16T01:04:52.447Z",
+  "updated_at": "2026-11-18T07:57:58.764Z",
   "plugins": [
     {
       "name": "自定义后台路径",
@@ -276,12 +276,12 @@
         "zh_CN": "基于多目标 TCP 探测检测服务器疑似被墙状态，支持双向严格模式、恢复通知、IP 脱敏和管理总览。",
         "en": "Detect suspected server blocking with multi-target TCP probes, bidirectional strict mode, recovery notifications, IP masking, and an admin overview."
       },
-      "version": "0.1.8",
+      "version": "0.1.9",
       "author": "Connor",
       "komari": ">=1.6.1",
       "url": "https://github.com/Connor3773/Komari_GFW",
-      "download": "https://github.com/Connor3773/Komari_GFW/releases/download/v0.1.8/komari-gfw-0.1.8.zip",
-      "sha256": "a3c1631001cb6d83186cce24ab6796e243d11016b251e6ebb3d36f6a5cf2642d",
+      "download": "https://github.com/Connor3773/Komari_GFW/releases/download/v0.1.9/komari-gfw-0.1.9.zip",
+      "sha256": "51f9724a35de0ec23a8b905c68c2b5b687696ff7a2e0472c776c1e200531f798",
       "category": "monitoring"
     },
     {
@@ -401,12 +401,12 @@
         "zh_CN": "以机器为中心管理 OneBox 代理节点，通过三步向导安装协议，并发布受令牌保护的 Mihomo、sing-box 与多客户端订阅。",
         "en": "Manage OneBox proxy nodes by machine, install protocols with a three-step wizard, and publish token-protected Mihomo, sing-box, and converted subscriptions."
       },
-      "version": "1.3.2",
+      "version": "1.3.3",
       "author": "ajax",
       "komari": ">=1.4.3",
       "url": "https://github.com/liuarui/komari-plugin-kns",
-      "download": "https://github.com/liuarui/komari-plugin-kns/releases/download/v1.3.2/onebox-bridge.zip",
-      "sha256": "fa29aae1d227632eb0a26c55b4265a2cf418b1c06e0c99c8fe97b641350af99e",
+      "download": "https://github.com/liuarui/komari-plugin-kns/releases/download/v1.3.3/onebox-bridge.zip",
+      "sha256": "0339b18548c9707febba53daf8cdefffac6a1836ba42415917421c4e48d821cc",
       "category": "network"
     },
     {
